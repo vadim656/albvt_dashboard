@@ -11,29 +11,23 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/main.css',
+    '@/assets/css/buefy.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~/plugins/vue-good-table', ssr: false }
-  ],
+  plugins: [{ src: '~/plugins/vue-good-table', ssr: false }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    '@nuxt/postcss8',
-    '@nuxtjs/google-fonts',
-  ],
+  buildModules: ['@nuxt/postcss8', '@nuxtjs/google-fonts'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -43,7 +37,7 @@ export default {
     '@nuxt/content',
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
-    'nuxt-buefy',
+    ['nuxt-buefy', { css: false }]
   ],
 
   router: {
@@ -52,20 +46,20 @@ export default {
   auth: {
     strategies: {
       graphql: {
-        scheme: '~/schemes/graphqlScheme.js',
-      },
+        scheme: '~/schemes/graphqlScheme.js'
+      }
     },
     redirect: {
       login: '/login',
       logout: '/login',
       callback: false,
-      home: '/',
-    },
+      home: '/'
+    }
   },
-   apollo: {
+  apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://api.albvt.ru:1337/graphql',
+        httpEndpoint: 'http://api.albvt.ru:1337/graphql'
       }
     }
   },
@@ -84,7 +78,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: '/'
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
@@ -96,7 +90,8 @@ export default {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
-      },
-    },
+        'postcss-custom-properties': false
+      }
+    }
   }
 }

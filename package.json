@@ -29,6 +29,8 @@
     "vue-template-compiler": "^2.7.10"
   },
   "devDependencies": {
-    "@nuxtjs/google-fonts": "^3.0.0-0"
+    "@nuxtjs/google-fonts": "^3.0.0-0",
+    "sass": "^1.56.1",
+    "sass-loader": "10"
   }
 }
