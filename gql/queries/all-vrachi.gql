@@ -1,0 +1,60 @@
+query ALL_VRACHI {
+    usersPermissionsUsers(filters: { RoleUser: { eq: "Vrach" } }) {
+      meta {
+        pagination {
+          total
+        }
+      }
+      data {
+        id
+        attributes {
+          Stavka
+          FIO_user
+          zakazies {
+            data {
+              id
+              attributes {
+                createdAt
+                SummOrder
+              }
+            }
+          }
+          zaprosy_vrachejs {
+            data {
+              attributes {
+                Summ
+                Done
+                oplataCheck {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          Pacientis {
+            data {
+              id
+              attributes {
+                FIO_user
+                zakazies {
+                  data {
+                    id
+                  }
+                }
+              }
+            }
+          }
+          speczialnosts {
+            data {
+              attributes {
+                Name
+              }
+            }
+          }
+        }
+      }
+    }
+  }

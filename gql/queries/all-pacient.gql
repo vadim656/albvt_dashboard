@@ -1,0 +1,31 @@
+query ALL_PACIENTS {
+    usersPermissionsUsers(filters: { RoleUser: { eq: "Pacient" } }) {
+      meta {
+        pagination {
+          total
+        }
+      }
+      data {
+        id
+        attributes {
+          RoleUser
+          Stavka
+          FIO_user
+          vrachis{
+            data{
+              id
+            }
+          }
+          zakazies {
+            data {
+              id
+              attributes {
+                createdAt
+                SummOrder
+              }
+            }
+          }
+        }
+      }
+    }
+  }

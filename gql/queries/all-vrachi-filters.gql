@@ -1,0 +1,79 @@
+query($GTE : DateTime, $LTE : DateTime) {
+  usersPermissionsUsers(
+    filters: {
+      RoleUser: { eq: "Vrach" }
+      and: {
+        zakazies: {
+          createdAt: {
+            gte: $GTE
+            lte: $LTE
+          }
+        }
+      }
+    }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        Stavka
+        FIO_user
+        zakazies(
+          filters: {
+            createdAt: {
+              gte: $GTE
+              lte: $LTE
+            }
+          }
+        ) {
+          data {
+            id
+            attributes {
+              createdAt
+              SummOrder
+            }
+          }
+        }
+        zaprosy_vrachejs {
+          data {
+            attributes {
+              Summ
+              Done
+              oplataCheck {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+        Pacientis {
+          data {
+            id
+            attributes {
+              FIO_user
+              zakazies {
+                data {
+                  id
+                }
+              }
+            }
+          }
+        }
+        speczialnosts {
+          data {
+            attributes {
+              Name
+            }
+          }
+        }
+      }
+    }
+  }
+}
