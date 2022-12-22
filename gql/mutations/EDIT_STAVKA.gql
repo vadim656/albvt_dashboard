@@ -1,0 +1,9 @@
+mutation EDIT_STAVKA($ID: ID!, $STAVKA : Int){
+ updateUsersPermissionsUser(id: $ID, data: { Stavka: $STAVKA }) {
+    data {
+      attributes {
+        Stavka
+      }
+    }
+  }
+}

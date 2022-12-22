@@ -1,30 +1,24 @@
-import gql from 'graphql-tag'
-
-const ALL_VRACHI_STAT = gql`
-  query ALL_VRACHI_STAT {
-    usersPermissionsUsers(filters: { RoleUser: { eq: "Vrach" } }) {
-      meta {
-        pagination {
-          total
-        }
-      }
-    }
-  }
-`
 
 export const state = () => ({
-  now: null
+  now: null,
+  reqs: null
 })
 
 export const getters = {
   getCounter (state) {
     return state.now
+  },
+  getCounterReqs (state) {
+    return state.reqs
   }
 }
 
 export const mutations = {
   UPDATE_TIME (state, data) {
     state.now = data.usersPermissionsUsers.meta.pagination.total
+  },
+  UPDATE_REQS (state, data) {
+    state.reqs = data.zaprosyVrachejs.meta.pagination.total
   }
 }
 
@@ -38,7 +32,18 @@ export const actions = {
         })
         .then(({ data }) => {
           commit('UPDATE_TIME', data)
-          console.log(data)
+        })
+    }, 5000)
+  },
+  startReqs ({ commit }) {
+    setInterval(() => {
+      let client = this.app.apolloProvider.defaultClient
+        .query({
+          query: ALL_REQS_STAT,
+          fetchPolicy: 'network-only'
+        })
+        .then(({ data }) => {
+          commit('UPDATE_REQS', data)
         })
     }, 2000)
   }

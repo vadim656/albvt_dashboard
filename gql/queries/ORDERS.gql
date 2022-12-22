@@ -1,8 +1,5 @@
-query ALL_PACIENTS($PAGE: Int!) {
-  usersPermissionsUsers(
-    pagination: { pageSize: 10, page: $PAGE }
-    filters: { RoleUser: { eq: "Pacient" } }
-  ) {
+query ORDERS( $PAGE: Int!) {
+  orders(pagination: { pageSize: 10, page: $PAGE }, sort: "Status:asc") {
     meta {
       pagination {
         total
@@ -14,23 +11,23 @@ query ALL_PACIENTS($PAGE: Int!) {
     data {
       id
       attributes {
-        RoleUser
-        FIO_user
-        zakazies {
-          data {
-            id
-            attributes {
-              createdAt
-              SummOrder
-              Status
-            }
-          }
-        }
-        users_permissions_users {
+        Status
+        SummOrder
+        StatusOplata
+        UID
+        users {
           data {
             id
             attributes {
               FIO_user
+            }
+          }
+        }
+        analizies {
+          data {
+            id
+            attributes {
+              UID
             }
           }
         }

@@ -6,27 +6,12 @@
           <div
             class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
           >
-            <!-- <a-select
+            <a-select
               :options="['Оплата: Да', 'Оплата: Нет', 'Оплата: Все']"
               :default="'Оплата: Все'"
               class=""
               @input="select1($event)"
             />
-            <a-select
-              v-if="ActiveSelect2 != 'Все'"
-              :options="['Запрос +', 'Запрос -']"
-              :default="'Запрос -'"
-              class=""
-              @input="select2($event)"
-            />
-            <a-select
-              v-if="ActiveSelect3 == 'Запрос +'"
-              :options="['Перевод +', 'Перевод -']"
-              :default="'Перевод -'"
-              class=""
-              @input="select3($event)"
-            /> -->
-
             <client-only
               ><VueDatePicker
                 :value="date"
@@ -35,6 +20,26 @@
                 placeholder="Выберите интервал"
                 range
             /></client-only>
+            <button
+              @click="reloadPage"
+              class="p-2 rounded-md bg-[#4F4F4F] text-white flex items-center gap-1 text-sm"
+            >
+              Сбросить
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4 "
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
@@ -45,7 +50,7 @@
           @input="search($event.target.value)"
           v-model="searchInput"
           class="w-full border rounded-md p-2"
-          placeholder="Поиск по врачам"
+          placeholder="Поиск по запросам"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,40 +99,30 @@
       </section>
     </nav>
     <div class="w-full flex flex-col gap-2">
-      <section
-        class="flex flex-col gap-4"
-        v-if="usersPermissionsUsers !== undefined"
-      >
+      <section class="flex flex-col gap-4">
         <div
           class="rounded-md overflow-hidden border border-gray-400 drop-shadow-lg"
         >
-          <table-vrach
-            v-if="userResult !== undefined"
-            :data_users="userResult"
+          <table-reqs
+            v-if="zaprosyVrachejs !== undefined"
+            :data_req="reqsResult"
           />
           <span v-else>Загрузка...</span>
         </div>
-        <div
-          class="py-12 flex justify-center"
-          v-if="usersPermissionsUsers !== undefined"
-        ></div>
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import aSelect from '~/components/a-select.vue'
 import { VueDatePicker } from '@mathieustan/vue-datepicker'
 import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css'
 import vClickOutside from 'v-click-outside'
+import TableReqs from '~/components/tables/table-reqs.vue'
 
-import ALL_VRACHI_DATE from '~/gql/queries/all-vrachi-filters.gql'
-import ALL_VRACHI from '~/gql/queries/all-vrachi.gql'
-import SEARCH_VRACH from '~/gql/queries/SEARCH_VRACH.gql'
-import TableVrach from '~/components/tables/table-vrach.vue'
-
-var options = {
+let options = {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -135,28 +130,21 @@ var options = {
 }
 
 export default {
+  layout: 'main',
+  components: { aSelect, VueDatePicker, TableReqs },
   apollo: {
-    usersPermissionsUsers: {
+    zaprosyVrachejs: {
       query () {
-        if (this.date.start) {
-          return ALL_VRACHI_DATE
-        } else {
-          return ALL_VRACHI
-        }
+        return this.selectFilter
       },
       variables () {
-        if (this.date.start) {
-          return {
-            GTE: this.DateIso.start,
-            LTE: this.DateIso.end
-          }
+        return {
+          GTE: this.DateIso.start,
+          LTE: this.DateIso.end
         }
       }
     }
   },
-  middleware: 'auth',
-  components: { aSelect, VueDatePicker, TableVrach },
-  layout: 'main',
   data () {
     return {
       date: new Date().toLocaleString('ru', options),
@@ -166,29 +154,24 @@ export default {
       searchResults: null,
       isDays: false,
       loading: true,
-      ActiveSelect1: 'Оплата: Все',
-      ActiveSelect2: 'Запрос -',
-      ActiveSelect3: 'Перевод -'
+      ActiveSelect: 'Оплата: Все'
     }
   },
   directives: {
     clickOutside: vClickOutside.directive
   },
   methods: {
+    reloadPage () {
+      location.reload()
+    },
+    select1 (id) {
+      this.ActiveSelect = id
+      this.page = 1
+    },
     externalClick () {
       this.searchResults = []
       this.searchInput = ''
     },
-    select1 (a) {
-      this.ActiveSelect1 = a
-    },
-    select2 (b) {
-      this.ActiveSelect2 = b
-    },
-    select3 (q) {
-      this.ActiveSelect3 = q
-    },
-
     async search (value) {
       if (value.length >= 3) {
         const lowerCase = value[0].toUpperCase() + value.slice(1)
@@ -202,7 +185,7 @@ export default {
 
           if (res) {
             this.loading = false
-            const data = res.data.usersPermissionsUsers.data
+            const data = res.data.zaprosyVrachejs.data
             this.searchResults = data
           }
         } catch (err) {
@@ -214,18 +197,120 @@ export default {
     }
   },
   computed: {
-    
-    DateIso () {
-      const d = new Date(this.date.end)
-      d.setDate(d.getDate() + 1)
-      const date = {
-        start: new Date(this.date.start).toISOString(),
-        end: d.toISOString()
+    selectFilter () {
+      const s1 = gql`
+        query ALL_REQS_FILTER($GTE: DateTime, $LTE: DateTime) {
+          zaprosyVrachejs(
+            filters: {
+              createdAt: { gte: $GTE, lte: $LTE }
+              and: { Done: { eq: true } }
+            }
+            sort: "Done:asc"
+          ) {
+            data {
+              id
+              attributes {
+                Summ
+                Done
+                createdAt
+                UID
+                users_permissions_user {
+                  data {
+                    attributes {
+                      FIO_user
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+      const s2 = gql`
+        query ALL_REQS_FILTER($GTE: DateTime, $LTE: DateTime) {
+          zaprosyVrachejs(
+            filters: {
+              createdAt: { gte: $GTE, lte: $LTE }
+              and: { Done: { eq: false } }
+            }
+            sort: "Done:asc"
+          ) {
+            data {
+              id
+              attributes {
+                Summ
+                Done
+                createdAt
+                UID
+                users_permissions_user {
+                  data {
+                    attributes {
+                      FIO_user
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+      const s3 = gql`
+        query ALL_REQS_FILTER($GTE: DateTime, $LTE: DateTime) {
+          zaprosyVrachejs(
+            filters: { createdAt: { gte: $GTE, lte: $LTE } }
+            sort: "Done:asc"
+          ) {
+            data {
+              id
+              attributes {
+                Summ
+                Done
+                createdAt
+                UID
+                users_permissions_user {
+                  data {
+                    attributes {
+                      FIO_user
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+      if (this.ActiveSelect == 'Оплата: Да') {
+        return s1
+      } else if (this.ActiveSelect == 'Оплата: Нет') {
+        return s2
+      } else if (this.ActiveSelect == 'Оплата: Все') {
+        return s3
       }
-      return date
     },
-    userResult () {
-      return this.usersPermissionsUsers.data
+    DateIso () {
+      if (this.date.start) {
+        const d = new Date(this.date.end)
+        d.setDate(d.getDate() + 1)
+        const date = {
+          start: new Date(this.date.start).toISOString(),
+          end: d.toISOString()
+        }
+        return date
+      } else {
+        const d2 = new Date()
+        d2.setDate(d2.getDate() + 1)
+        const d1 = new Date()
+        d1.setDate(d1.getDate() - 10)
+        const date = {
+          start: d1.toISOString(),
+          end: d2.toISOString()
+        }
+        return date
+      }
+    },
+
+    reqsResult () {
+      return this.zaprosyVrachejs.data
     }
   }
 }

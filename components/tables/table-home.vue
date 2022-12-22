@@ -12,80 +12,57 @@
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          ФИО
+          Тип офиса
         </th>
         <th
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          Заказы<br />
-          <span class="text-xs"> Сегодня / Всего</span>
+          Адрес
         </th>
         <th
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          Сумма<br />
-          <span class="text-xs "> Всего / Ставка</span>
+          Врачи
         </th>
         <th
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          + Всех<br />
-          <span class="text-xs"> запросов</span>
+          Заказы
+        </th>
+        <th
+          scope="col"
+          class="px-4 py-3 text-right text-sm align-top font-medium text-gray-600  tracking-wider"
+        >
+          Сумма
         </th>
         <th
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          Перевел
-        </th>
-        <th
-          scope="col"
-          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
-        >
-          Остаток
-        </th>
-        <th
-          scope="col"
-          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
-        >
-          Всего<br />
-          <span class="text-xs"> пациенты</span>
-        </th>
-        <th
-          scope="col"
-          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
-        >
-          Специальность
-        </th>
-        <th
-          scope="col"
-          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
-        >
-          Чек
+          Действия
         </th>
       </tr>
     </thead>
-    <tbody v-if="data_users" class=" divide-y divide-gray-400">
-      <table-row-vrach
-        v-for="(item, i) in data_users"
+    <tbody v-if="data_home" class=" divide-y divide-gray-400">
+      <table-home-row
+        v-for="(item, i) in data_home"
         :key="item.id"
         :item="item"
         :class="[i % 2 ? 'bg-white' : 'bg-gray-100']"
       />
     </tbody>
-    
   </table>
 </template>
 
 <script>
-import tableRowVrach from './table-row-vrach.vue'
+import TableHomeRow from './table-home-row.vue'
 export default {
-  components: { tableRowVrach },
+  components: { TableHomeRow },
   props: {
-    data_users: Array
+    data_home: Array
   }
 }
 </script>

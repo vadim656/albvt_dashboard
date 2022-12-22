@@ -2,14 +2,7 @@ query($GTE : DateTime, $LTE : DateTime) {
   usersPermissionsUsers(
     filters: {
       RoleUser: { eq: "Vrach" }
-      and: {
-        zakazies: {
-          createdAt: {
-            gte: $GTE
-            lte: $LTE
-          }
-        }
-      }
+      and: { Pacientis: { zakazies: { createdAt: { gte: $GTE, lte: $LTE } } } }
     }
   ) {
     meta {
@@ -22,14 +15,7 @@ query($GTE : DateTime, $LTE : DateTime) {
       attributes {
         Stavka
         FIO_user
-        zakazies(
-          filters: {
-            createdAt: {
-              gte: $GTE
-              lte: $LTE
-            }
-          }
-        ) {
+        zakazies{
           data {
             id
             attributes {
@@ -58,7 +44,7 @@ query($GTE : DateTime, $LTE : DateTime) {
             id
             attributes {
               FIO_user
-              zakazies {
+              zakazies(filters: { createdAt: { gte: $GTE, lte: $LTE } }) {
                 data {
                   id
                 }

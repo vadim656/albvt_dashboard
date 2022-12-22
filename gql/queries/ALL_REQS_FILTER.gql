@@ -1,0 +1,24 @@
+query ALL_REQS_FILTER($GTE: DateTime, $LTE: DateTime,) {
+  zaprosyVrachejs(
+    filters: {
+        createdAt: { gte: $GTE, lte: $LTE } 
+    }
+    sort: "Done:asc") {
+    data {
+      id
+      attributes {
+        Summ
+        Done
+        createdAt
+        UID
+        users_permissions_user {
+          data {
+            attributes {
+              FIO_user
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+mutation UPDATE_ORDER($ID: ID!) {
+  updateOrder(id: $ID, data: { StatusOplata: true }) {
+    data {
+      id
+      attributes {
+        StatusOplata
+      }
+    }
+  }
+}

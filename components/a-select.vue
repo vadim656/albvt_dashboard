@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex items-center w-full min-w-[110px] max-w-[140px] " :tabindex="tabindex" @blur="open = false">
+  <div class="relative flex items-center w-full min-w-[110px] max-w-[220px] " :tabindex="tabindex" @blur="open = false">
     <div
       class="bg-[#4F4F4F] hover:bg-[#5B5B5B] anime text-white text-sm py-2 pl-4 px-2 w-full flex j justify-between items-center rounded-lg gap-1 cursor-pointer hover:drop-shadow-xl anime"
       :class="{ open: open }"
@@ -17,7 +17,7 @@
       :class="{ hidden: !open }"
     >
       <div
-        class="cursor-pointer p-2 bg-white text-[#343434] border-b group text-sm   hover:bg-[#F5F5F5] flex items-center justify-between"
+        class="cursor-pointer p-2 bg-white text-gray-900 border-b group text-sm   hover:bg-[#F5F5F5] flex items-center justify-between"
         v-for="(option, i) of options"
         :key="i"
         @click="
@@ -64,9 +64,6 @@ export default {
       open: false
     }
   }
-  //   mounted () {
-  //     this.$emit('input', this.selected)
-  //   }
 }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-[#fcfcfc]">
+  <div class="bg-[#fcfcfc] relative">
     <div class="min-h-screen flex w-full flex-row bg-gray-100">
       <div
-        class="flex flex-col w-full min-w-[120px] max-w-[120px] bg-white rounded-r-3xl overflow-hidden"
+        class="flex flex-col w-full min-w-[180px] max-w-[180px] bg-white rounded-r-3xl overflow-hidden"
       >
         <div class="flex items-center justify-center h-14 shadow-md">
           <h1 class="text-xl font-bold uppercase text-blue-600">ALBVT</h1>
@@ -16,7 +16,7 @@
           >
             <span class="text-sm font-medium">Главная</span>
           </nuxt-link>
-
+          <!-- врачи -->
           <nuxt-link
             prefetch
             to="/vrachi"
@@ -27,14 +27,28 @@
               class="text-sm font-medium flex justify-between items-center w-full "
             >
               <span>Врачи</span>
-              <span
-                class="text-xs  absolute top-0 right-1 "
-
-                >{{ totalVrach }}</span
-              >
+              <span class="text-xs  absolute top-0 right-1 ">{{
+                usersPermissionsUsers.meta.pagination.total
+              }}</span>
             </div>
           </nuxt-link>
-
+          <!-- запросы -->
+          <nuxt-link
+            prefetch
+            to="/requests"
+            href="#"
+            class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+          >
+            <div
+              class="text-sm font-medium flex justify-between items-center w-full "
+            >
+              <span>Запросы на вывод</span>
+              <span class="text-xs  absolute top-0 right-1 ">{{
+                zaprosyVrachejs.meta.pagination.total
+              }}</span>
+            </div>
+          </nuxt-link>
+          <!-- пациенты -->
           <nuxt-link
             to="/pacienti"
             prefetch
@@ -48,32 +62,49 @@
               >{{ pacienti }}</span
             >
           </nuxt-link>
-
+          <!-- заказы -->
           <nuxt-link
-            to="/pacienti"
+            to="/orders"
             prefetch
             href="#"
-            class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 "
+            class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
           >
-            <span class="text-sm font-medium">Заявки</span>
+            <div
+              class="text-sm font-medium flex justify-between items-center w-full "
+            >
+              <span>Заказы</span>
+              <span class="text-xs  absolute top-0 right-1 ">{{
+                orders.meta.pagination.total
+              }}</span>
+            </div>
+          </nuxt-link>
+          <!-- посещения -->
+          <nuxt-link
+            to="/visits"
+            prefetch
+            href="#"
+            class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+          >
+            <span>Посещения</span>
           </nuxt-link>
 
           <span class="w-full h-[1px] bg-gray-600/20 my-4"></span>
 
-          <a
-            href="#"
-            class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 "
+          <li
+            class="flex flex-row justify-center items-center h-10 px-3 hover:translate-x-1 anime anime text-gray-500 "
           >
-            <div
-              class="relative block cursor-pointer bg-white rounded-full hover:drop-shadow-xl anime"
-            >
-              <img src="~assets/icons/notifycation-not.svg" alt="" />
-              <span
-                class="w-4 h-4 text-xs bg-white rounded-full absolute -top-2 right-0 text-[#343434] flex items-center justify-center z-[1]"
-                >0</span
+            <nuxt-link to="/notices">
+              <div
+                class="relative block cursor-pointer bg-white rounded-full hover:drop-shadow-xl anime"
               >
-            </div>
-          </a>
+                <img src="~assets/icons/notifycation-not.svg" alt="" />
+                <span
+                  class="w-4 h-4 text-xs bg-white rounded-full absolute -top-2 right-0 text-[#343434] flex items-center justify-center z-[1]"
+                  >0</span
+                >
+              </div>
+            </nuxt-link>
+          </li>
 
           <li>
             <nuxt-link
@@ -87,15 +118,16 @@
               >
                 <img src="~assets/icons/mail-not.svg" class="pt-1" alt="" />
                 <span
-                  class="w-4 h-4 text-xs bg-white rounded-full absolute -top-2 right-0 text-[#343434] flex items-center justify-center z-[1]"
+                  class="w-4 h-4 text-xs bg-white rounded-full absolute -top-2 -right-2 text-[#343434] flex items-center justify-center z-[1]"
                   >0</span
                 >
               </div>
             </nuxt-link>
           </li>
+
           <li>
             <nuxt-link
-              to="/zayavki"
+              to="/requests"
               href="#"
               class="flex flex-row items-center h-10 justify-center transform hover:translate-x-1 anime text-gray-500 hover:text-blue-600"
             >
@@ -103,8 +135,8 @@
                 class="relative block cursor-pointer bg-white rounded-full hover:drop-shadow-xl anime"
               >
                 <span
-                  class="w-4 h-4 text-xs bg-white rounded-full absolute -top-2 right-0 text-[#343434] flex items-center justify-center z-[1]"
-                  >0</span
+                  class="w-4 h-4 text-xs bg-white rounded-full absolute -top-2 -right-1 text-[#343434] flex items-center justify-center z-[1]"
+                  >{{ zaprosyVrachejs.meta.pagination.total }}</span
                 >
                 <img src="~assets/icons/money-not.svg" alt="" class="" />
               </div>
@@ -122,80 +154,65 @@
 
 <script>
 import AHeader from '../components/a-header.vue'
-
 import gql from 'graphql-tag'
 
-import { mapMutations, mapState, mapActions, mapGetters } from 'vuex'
-
-const qs = require('qs')
-
-const ALL_VRACHI = gql`
-  query ALL_VRACHI {
-    usersPermissionsUsers(filters: { RoleUser: { eq: "Vrach" } }) {
-      meta {
-        pagination {
-          total
-        }
-      }
-    }
-  }
-`
-
-const ALL_PACIENI = gql`
-  query ALL_PACIENI {
-    usersPermissionsUsers(filters: { RoleUser: { eq: "Pacient" } }) {
-      meta {
-        pagination {
-          total
-        }
-      }
-    }
-  }
-`
-
 export default {
+  apollo: {
+    zaprosyVrachejs: {
+      query: gql`
+        query ALL_REQS_STAT {
+          zaprosyVrachejs(filters: { Done: { eq: false } }) {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 2000
+    },
+    usersPermissionsUsers: {
+      query: gql`
+        query ALL_VRACHI_STAT {
+          usersPermissionsUsers(filters: { RoleUser: { eq: "Vrach" } }) {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 10000
+    },
+    orders: {
+      query: gql`
+        query STAT_ORDERS {
+          orders(
+            filters: { Status: { eq: false }, StatusOplata: { eq: false } }
+          ) {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 2000
+    }
+  },
   components: { AHeader },
   data () {
     return {
       vrachi: null,
       pacienti: null,
+      reqs: null,
       page: 0
-    }
-  },
-  methods: {
-    ...mapActions(['start']),
-
-    vrachiGet () {
-      this.$apollo
-        .query({
-          query: ALL_VRACHI
-        })
-        .then(({ data }) => {
-          this.vrachi = data.usersPermissionsUsers.meta.pagination.total
-        })
-    },
-    pacientiGet () {
-      console.log(this.pacienti)
-
-      this.$apollo
-        .query({
-          query: ALL_PACIENI
-        })
-        .then(({ data }) => {
-          this.pacienti = data.usersPermissionsUsers.meta.pagination.total
-        })
-    }
-  },
-  created () {
-    // this.startAnalitics()
-  },
-  mounted () {
-    this.start()
-  },
-  computed: {
-    ...mapGetters(['getCounter']),
-    totalVrach(){
-      return this.getCounter
     }
   }
 }

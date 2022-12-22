@@ -6,61 +6,18 @@
           <div
             class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
           >
-            <a-select
+            <!-- <a-select
               :options="['Инвитро', 'Больницы']"
               :default="'Инвитро'"
               class=""
               @input="select1($event)"
-            />
+            /> -->
             <a-select
-              :options="['Оплачен', 'Не оплачен', 'Все']"
-              :default="'Все'"
+              :options="['Оплата: Нет', 'Оплата: Да', 'Оплата: Все']"
+              :default="'Оплата: Все'"
               class=""
               @input="select3($event)"
             />
-
-            <a-select
-              v-if="filterOne.par3 != 'Все'"
-              :options="['Запрос +', 'Запрос -']"
-              :default="'Запрос -'"
-              class=""
-              @input="select5($event)"
-            />
-            <a-select
-              v-if="filterOne.par5 == 'Запрос +'"
-              :options="['Перевод +', 'Перевод -']"
-              :default="'Перевод -'"
-              class=""
-              @input="select4($event)"
-            />
-            <button
-              @click="isDays = !isDays"
-              :class="[isDays == true ? 'bg-blue-500' : 'bg-[#4F4F4F]']"
-              class="  anime text-white text-sm py-2  px-2 flex  justify-center items-center rounded-lg gap-2 cursor-pointer hover:drop-shadow-xl anime min-w-[110px] max-w-[140px]"
-            >
-              По дням
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-3 h-3"
-                v-if="isDays == true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                />
-              </svg>
-            </button>
-            <!-- <a-select
-            :options="['Инвитро', 'Больницы']"
-            :default="'Посещения'"
-            class=""
-            @input="select($event)"
-          /> -->
           </div>
         </div>
       </section>
@@ -120,9 +77,24 @@
       </section>
     </nav>
 
-    <section class="">
-      <table-pacient v-if="userResult" :data_users="userResult" />
+    <section class="flex flex-col gap-6" v-if="usersPermissionsUsers">
+      <table-pacient
+        v-if="usersPermissionsUsers"
+        :data_users="usersPermissionsUsers.data"
+      />
+      <div class="flex gap-3" v-if="usersPermissionsUsers.meta.pagination.pageCount >= 2">
+        <button
+          v-for="(item, i) in usersPermissionsUsers.meta.pagination.pageCount"
+          :key="i"
+          class=" w-10 h-10 flex items-center justify-center rounded-full text-white"
+          :class="[page == i + 1 ? 'bg-blue-500' : 'bg-blue-400']"
+          @click="page = i + 1"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
     </section>
+    <span v-else>Загрузка...</span>
   </div>
 </template>
 
@@ -155,7 +127,6 @@ const SEARCH_PACIENTI = gql`
   }
 `
 
-
 export default {
   components: { aSelect, TablePacient },
   middleware: 'auth',
@@ -167,6 +138,7 @@ export default {
       isDays: false,
       allUsers: [],
       loading: true,
+      page: 1,
       filterOne: {
         par1: '',
         par2: '',
@@ -233,32 +205,15 @@ export default {
 
   apollo: {
     usersPermissionsUsers: {
-      query: ALL_PACIENTS
-    }
-  },
-  computed: {
-    userResult () {
-      const all = this.usersPermissionsUsers.data.map(user => {
-        if (user.attributes.zakazies.data.length) {
-          user["Orders"] = user.attributes.zakazies.data.length
-          let sumOrders = 0
-          user.attributes.zakazies.data.forEach(zak => {
-            sumOrders += Number(zak.attributes.SummOrder)
-          })
-          user['sumOrders'] = sumOrders
-
-          user['vrachis'] = user.attributes.vrachis.data.length
-
-          return user
-        } else {
-          user["Orders"] = 0
-          user['sumOrders'] = 0
-          return user
+      query: ALL_PACIENTS,
+      variables () {
+        return {
+          PAGE: this.page
         }
-      })
-      return all
+      }
     }
   },
+  computed: {}
 }
 </script>
 

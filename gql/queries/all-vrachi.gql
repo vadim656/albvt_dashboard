@@ -1,60 +1,75 @@
+# Write your query or mutation here
 query ALL_VRACHI {
-    usersPermissionsUsers(filters: { RoleUser: { eq: "Vrach" } }) {
-      meta {
-        pagination {
-          total
-        }
+  usersPermissionsUsers(
+    filters: { RoleUser: { eq: "Vrach" } }
+    pagination: { limit: 100 }
+  ) {
+    meta {
+      pagination {
+        total
+        pageSize
       }
-      data {
-        id
-        attributes {
-          Stavka
-          FIO_user
-          zakazies {
-            data {
-              id
-              attributes {
-                createdAt
-                SummOrder
-              }
+    }
+    data {
+      id
+      attributes {
+        Stavka
+        FIO_user
+        zakazies {
+          data {
+            id
+            attributes {
+              createdAt
+              Status
+              SummOrder
             }
           }
-          zaprosy_vrachejs {
-            data {
-              attributes {
-                Summ
-                Done
-                oplataCheck {
-                  data {
-                    attributes {
-                      url
-                    }
+        }
+        zaprosy_vrachejs {
+          data {
+            attributes {
+              Summ
+              Done
+              zakazies{
+                data{
+                  id
+                  attributes{
+                    SummOrder
+                    Status
+                  }
+                }
+              }
+              oplataCheck {
+                data {
+                  attributes {
+                    url
                   }
                 }
               }
             }
           }
-          Pacientis {
-            data {
-              id
-              attributes {
-                FIO_user
-                zakazies {
-                  data {
-                    id
-                  }
+        }
+        Pacientis {
+          data {
+            id
+            attributes {
+              FIO_user
+              zakazies {
+                data {
+                  id
                 }
               }
             }
           }
-          speczialnosts {
-            data {
-              attributes {
-                Name
-              }
+        }
+        speczialnosts {
+          data {
+            attributes {
+              Name
             }
           }
         }
       }
     }
   }
+}

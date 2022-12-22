@@ -1,0 +1,29 @@
+query OFISES_ALL($GTE: DateTime, $LTE: DateTime, $PAGE: Int!) {
+  gorodaInvitros(
+    pagination: { pageSize: 10, page: $PAGE }
+  ) {
+    meta {
+      pagination {
+        total
+        pageSize
+        pageCount
+        page
+      }
+    }
+    data {
+      id
+      attributes {
+        Invitro
+        Name
+        zakazies(filters: { createdAt: { gte: $GTE, lte: $LTE } }) {
+          data {
+            id
+            attributes {
+              createdAt
+            }
+          }
+        }
+      }
+    }
+  }
+}

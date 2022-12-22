@@ -1,9 +1,9 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'admin',
+    title: 'CRM Albvt',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ru'
     },
     meta: [
       { charset: 'utf-8' },
@@ -21,7 +21,10 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/vue-good-table', ssr: false }],
+  plugins: [
+    { src: '~/plugins/vue-good-table', ssr: false },
+    { src: "~/plugins/vClickOutside", ssr: false }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -34,10 +37,10 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/content
-    '@nuxt/content',
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
-    ['nuxt-buefy', { css: false }]
+    ['nuxt-buefy', { css: false }],
+    "vue-toastification/nuxt"
   ],
 
   router: {
@@ -59,7 +62,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://api.albvt.ru:1337/graphql'
+        httpEndpoint: 'https://api.albvt.ru/graphql'
       }
     }
   },

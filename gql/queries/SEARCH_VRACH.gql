@@ -1,0 +1,10 @@
+query SEARCH_VRACH($FIO: String) {
+  usersPermissionsUsers(filters: { FIO_user: { containsi: $FIO } }) {
+    data {
+      id
+      attributes {
+        FIO_user
+      }
+    }
+  }
+}

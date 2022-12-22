@@ -1,0 +1,10 @@
+mutation EDIT_STATUS_ZAPROS($ID: ID!) {
+  updateZaprosyVrachej(id: $ID, data: { Done: true }) {
+    data {
+      attributes {
+        Done
+        updatedAt
+      }
+    }
+  }
+}
