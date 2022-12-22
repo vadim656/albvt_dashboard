@@ -2,10 +2,16 @@
   "name": "admin",
   "version": "1.0.0",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "localhost",
+      "port": "3333"
+    }
+  },
   "scripts": {
-    "dev": "PORT=1338 nuxt",
+    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "PORT=1338 nuxt start",
+    "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
