@@ -1,52 +1,52 @@
 <template>
   <div>
     <section>
-      <b-pagination
-        :total="total"
-        v-model="current"
-        :range-before="rangeBefore"
-        :range-after="rangeAfter"
-        :order="order"
-        :size="size"
-        :simple="isSimple"
-        :rounded="isRounded"
-        :per-page="perPage"
-        :icon-prev="prevIcon"
-        :icon-next="nextIcon"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-        :page-input="hasInput"
-        :page-input-position="inputPosition"
-        :debounce-page-input="inputDebounce"
-      >
-      </b-pagination>
+      <button  class="p-3 border-2">Start</button>
     </section>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
 export default {
   components: {},
   layout: 'main',
   data () {
-    return {
-      total: 200,
-      current: 10,
-      perPage: 10,
-      rangeBefore: 3,
-      rangeAfter: 1,
-      order: '',
-      size: '',
-      isRounded: true,
-      hasInput: false,
-      prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right',
-      inputPosition: '',
-      inputDebounce: ''
-    }
+    return {}
   },
-  name: 'IndexPage'
+  name: 'IndexPage',
+  methods: {
+    // update () {
+    //   const min = 1711
+    //   const max = 3321
+    //   console.log('start');
+    //   for (let i = 1711; i <= 3321; i++) {
+    //     this.$apollo.mutate({
+    //       mutation: gql`
+    //         mutation($ID: ID!) {
+    //           updateAnalizy(id: $ID, data: { biomaterialies: [11] }) {
+    //             data {
+    //               attributes {
+    //                 Name
+    //                 biomaterialies {
+    //                   data {
+    //                     id
+    //                     attributes {
+    //                       Name
+    //                     }
+    //                   }
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //       `,
+    //       variables: {
+    //         ID: i
+    //       }
+    //     })
+    //   }
+    // }
+  }
 }
 </script>

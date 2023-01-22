@@ -3,29 +3,9 @@
     <nav class="grid grid-cols-[5fr,4fr] gap-1">
       <section class="col-span-1 flex items-center">
         <div class="flex justify-between w-full">
-          <div
+          <!-- <div
             class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
           >
-            <!-- <a-select
-              :options="['Оплата: Да', 'Оплата: Нет', 'Оплата: Все']"
-              :default="'Оплата: Все'"
-              class=""
-              @input="select1($event)"
-            />
-            <a-select
-              v-if="ActiveSelect2 != 'Все'"
-              :options="['Запрос +', 'Запрос -']"
-              :default="'Запрос -'"
-              class=""
-              @input="select2($event)"
-            />
-            <a-select
-              v-if="ActiveSelect3 == 'Запрос +'"
-              :options="['Перевод +', 'Перевод -']"
-              :default="'Перевод -'"
-              class=""
-              @input="select3($event)"
-            /> -->
 
             <client-only
               ><VueDatePicker
@@ -35,7 +15,7 @@
                 placeholder="Выберите интервал"
                 range
             /></client-only>
-          </div>
+          </div> -->
         </div>
       </section>
 

@@ -28,7 +28,7 @@
             >
               <span>Врачи</span>
               <span class="text-xs  absolute top-0 right-1 ">{{
-                usersPermissionsUsers.meta.pagination.total
+                usersPermissionsUsersVrach.meta.pagination.total
               }}</span>
             </div>
           </nuxt-link>
@@ -56,11 +56,9 @@
             class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
           >
             <span>Пациенты</span>
-            <span
-              class="text-xs  absolute top-0 right-1 "
-              v-if="pacienti !== null"
-              >{{ pacienti }}</span
-            >
+            <span class="text-xs  absolute top-0 right-1 ">{{
+              usersPermissionsUsersPacient.meta.pagination.total
+            }}</span>
           </nuxt-link>
           <!-- заказы -->
           <nuxt-link
@@ -173,10 +171,29 @@ export default {
       loadingKey: 'loading',
       pollInterval: 2000
     },
-    usersPermissionsUsers: {
+    usersPermissionsUsersVrach: {
       query: gql`
         query ALL_VRACHI_STAT {
-          usersPermissionsUsers(filters: { RoleUser: { eq: "Vrach" } }) {
+          usersPermissionsUsersVrach: usersPermissionsUsers(
+            filters: { RoleUser: { eq: "Vrach" } }
+          ) {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 10000
+    },
+    usersPermissionsUsersPacient: {
+      query: gql`
+        query ALL_VRACHI_STAT {
+          usersPermissionsUsersPacient: usersPermissionsUsers(
+            filters: { RoleUser: { eq: "Pacient" } }
+          ) {
             meta {
               pagination {
                 total

@@ -1,4 +1,4 @@
-query ORDERS( $PAGE: Int!) {
+query ORDERS( $PAGE: Int! , $GTE: DateTime, $LTE: DateTime) {
   orders(pagination: { pageSize: 10, page: $PAGE }, sort: "Status:asc") {
     meta {
       pagination {

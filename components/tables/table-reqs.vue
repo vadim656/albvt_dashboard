@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <table class="min-w-full divide-y divide-gray-200  ">
+    <table class="min-w-full divide-y divide-gray-200  rounded-md  border border-gray-400 drop-shadow-lg">
       <thead class="bg-gray-50 border-b border-gray-400">
         <tr>
           <th

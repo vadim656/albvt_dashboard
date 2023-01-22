@@ -3,12 +3,15 @@
     <td
       class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-gray-200 text-gray-900  anime "
     >
+
       {{ order.attributes.UID }}
     </td>
     <td
       class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
     >
-    <span v-if="order.attributes.users.data.length > 0">{{ order.attributes.users.data[0].attributes.FIO_user }}</span>
+    <span v-if="order.attributes.users.data.length > 0">
+    <nuxt-link :to="/pacient/ + order.attributes.users.data[0].id">{{ order.attributes.users.data[0].attributes.FIO_user }}</nuxt-link>
+    </span>
     <span v-else>Нет</span>
     
     </td>
@@ -165,7 +168,8 @@
             <button
               class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
             >
-              Состав
+            <nuxt-link :to="/orders/ + order.id">Состав</nuxt-link>
+              
             </button>
             <button
               v-if="

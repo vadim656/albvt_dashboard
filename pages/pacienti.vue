@@ -1,17 +1,11 @@
 <template>
   <div class="flex w-full flex-col gap-6">
     <nav class="grid grid-cols-[4fr,3fr] gap-1">
-      <section class="col-span-1 flex items-center">
+      <!-- <section class="col-span-1 flex items-center">
         <div class="flex justify-between w-full">
           <div
             class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
           >
-            <!-- <a-select
-              :options="['Инвитро', 'Больницы']"
-              :default="'Инвитро'"
-              class=""
-              @input="select1($event)"
-            /> -->
             <a-select
               :options="['Оплата: Нет', 'Оплата: Да', 'Оплата: Все']"
               :default="'Оплата: Все'"
@@ -20,7 +14,7 @@
             />
           </div>
         </div>
-      </section>
+      </section> -->
       <section class="relative col-span-1">
         <input
           type="text"
@@ -44,34 +38,26 @@
         </svg>
 
         <div
-          v-if="searchResults.data"
+          v-if="searchResults"
+          v-click-outside="externalClick"
           class="absolute top-10  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
         >
           <div class="flex flex-col -gap-1">
-            <div
-              v-for="item in searchResults.data"
+            <nuxt-link
+              :to="`/vrach/` + item.id"
+              v-for="item in searchResults"
               :key="item.id"
-              class="py-3 border-b border-[#212121]/30 grid content-center grid-cols-[1fr,5fr,3fr]  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
+              class="py-3 border-b border-[#212121]/30 grid content-center grid-cols-[1fr,7fr,3fr]  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
             >
               <div class="w-full flex items-center">
                 <span class="text-left text-xs">ID {{ item.id }} </span>
               </div>
               <div class="w-full flex items-center">
                 <span class="text-left font-bold text-sm truncate ">
-                  {{ item.attributes.FIO }}
+                  {{ item.attributes.FIO_user }}
                 </span>
               </div>
-              <div class="w-full flex items-center  flex-end">
-                <span class=" text-sm text-right text-[#343434]/70  w-full">{{
-                  item.attributes.speczialnost.data.attributes.Name
-                }}</span>
-              </div>
-            </div>
-            <!-- <button
-            class="p-4 font-semibold bg-red/70 hover:bg-red/90 anime text-white"
-          >
-            Показать все товары
-          </button> -->
+            </nuxt-link>
           </div>
         </div>
       </section>
@@ -100,37 +86,18 @@
 
 <script>
 import aSelect from '../components/a-select.vue'
-
-// import ALL_VRACHI from '../gql/queries/all-vrachi.gql'
-import gql from 'graphql-tag'
-import ALL_PACIENTS from '../gql/queries/all-pacient.gql'
+import vClickOutside from 'v-click-outside'
+import ALL_PACIENTS from '~/gql/queries/all-pacient.gql'
 import TablePacient from '../components/tables/table-pacient.vue'
-const SEARCH_PACIENTI = gql`
-  query($FIO: String!) {
-    search(query: $FIO) {
-      vrachis {
-        data {
-          id
-          attributes {
-            FIO
-            speczialnost {
-              data {
-                attributes {
-                  Name
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
+import SEARCH_PACIENT from '~/gql/queries/SEARCH_PACIENT.gql'
 
 export default {
   components: { aSelect, TablePacient },
   middleware: 'auth',
   layout: 'main',
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   data () {
     return {
       searchInput: '',
@@ -164,35 +131,27 @@ export default {
     select5 (e) {
       this.filterOne.par5 = e
     },
-    async SearchUsers () {
-      const config = {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjY4OTI4NzA0LCJleHAiOjE2NzE1MjA3MDR9.XpGj5j0p1ip2MLBk5QzjCp20LPYbFmkM1qesOoL_aB4`
-        }
-      }
-      const users = await this.$axios.$get('http://localhost:1337/api/users', {
-        config,
-        params: {
-          populate: '*'
-        }
-      })
-      this.allUsers = users
+    externalClick () {
+      this.searchResults = []
+      this.searchInput = ''
     },
     async search (value) {
-      const lowerCase = value.toLowerCase()
-      if (lowerCase.length >= 2) {
+      if (value.length >= 3) {
+        const lowerCase = value[0].toUpperCase() + value.slice(1)
+        
         try {
           const res = await this.$apollo.query({
-            query: SEARCH_PACIENTI,
+            query: SEARCH_PACIENT,
             variables: {
               FIO: lowerCase
             }
           })
 
           if (res) {
+            console.log(res.data);
             this.loading = false
-            const vrachis = res.data.search.vrachis
-            this.searchResults = vrachis
+            const data = res.data.usersPermissionsUsers.data
+            this.searchResults = data
           }
         } catch (err) {
           this.loading = false

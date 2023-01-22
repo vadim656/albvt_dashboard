@@ -1,0 +1,44 @@
+query USER_ID($ID: ID) {
+  usersPermissionsUser(id: $ID) {
+    data {
+      id
+      attributes {
+        Stavka
+        FIO_user
+        Phone
+        DataRozgdeniya
+        email
+        zakazies {
+          data {
+            id
+            attributes {
+              UID
+              Status
+              PromoVrach
+              SummOrder
+              createdAt
+              analizies {
+                data {
+                  id
+                  attributes {
+                    Name
+                    Price
+                    biomaterialies {
+                      data {
+                        id
+                        attributes {
+                          Price
+                          Name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

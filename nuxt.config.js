@@ -39,7 +39,7 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
-    ['nuxt-buefy', { css: false }],
+
     "vue-toastification/nuxt"
   ],
 

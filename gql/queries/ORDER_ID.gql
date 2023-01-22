@@ -1,0 +1,30 @@
+query ORDER_ID($ID: ID) {
+  order(id: $ID) {
+    data {
+      id
+      attributes {
+        createdAt
+        SummOrder
+        UID
+        analizies {
+          data {
+            attributes {
+              Name
+              Art
+              Price
+              biomaterialies {
+                data {
+                  id
+                  attributes {
+                    Name
+                    Price
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@ query($GTE : DateTime, $LTE : DateTime) {
     data {
       id
       attributes {
+        Promo
         Stavka
         FIO_user
         zakazies{

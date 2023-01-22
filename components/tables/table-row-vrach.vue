@@ -1,5 +1,5 @@
 <template>
-  <tr class="  bg-white group  anime cursor-pointer">
+  <tr class="  bg-white group  anime cursor-pointer" v-if="orders">
     <td
       class="px-4 py-2 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
@@ -20,18 +20,13 @@
     <td
       class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
-      <span v-if="item.attributes.zakazies.data.length">
-        3 / {{ item.attributes.zakazies.data.length }}
-      </span>
-      <span v-else>0 / 0</span>
+      <span>{{summOrders.nowDate.length}} / {{ summOrders.data.length }}</span>
     </td>
     <td
       class="px-4 py-2 whitespace-nowrap text-sm font-bold text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
       <span
-        >{{ summZapros.toLocaleString('ru-RU') }}<br /><span
-          class="text-xs font-normal"
-        >
+        >{{ summOrders.summZaprosAll }}<br /><span class="text-xs font-normal">
           {{ item.attributes.Stavka }}%
         </span></span
       >
@@ -40,7 +35,6 @@
       class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
       <span>
-        {{ allZaprosFalse.toLocaleString('ru-RU') }} /
         {{ allZapros.toLocaleString('ru-RU') }}
       </span>
     </td>
@@ -114,7 +108,7 @@
           >
         </div>
         <svg
-        v-if="allZaprosLength == 0"
+          v-if="allZaprosLength == 0"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -134,9 +128,20 @@
 </template>
 
 <script>
+import ALL_VRACHI_PROMO from '~/gql/queries/ALL_VRACHI_PROMO.gql'
 export default {
   props: {
     item: Object
+  },
+  apollo: {
+    orders: {
+      query: ALL_VRACHI_PROMO,
+      variables () {
+        return {
+          ID: this.item.attributes.Promo
+        }
+      }
+    }
   },
   computed: {
     allZapros () {
@@ -168,8 +173,33 @@ export default {
       )
       return summZap.toFixed(0)
     },
-    summZapros () {
-      return 0
+    summOrders () {
+      let nowDate = []
+
+      const data = this.orders.data.map(x => x.attributes.SummOrder)
+      const summZaprosAll = data.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      )
+      const allDay = this.orders.data.map(x => new Date(x.attributes.createdAt))
+
+      allDay.forEach(day => {
+        let today = new Date()
+        let todayDay = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate()
+        ).valueOf()
+
+        const x = new Date(day.getFullYear(), day.getMonth(), day.getDate()).valueOf()
+        if (todayDay == x) {
+          nowDate.push(x)
+        } else {
+          console.log('net')
+        }
+      })
+
+      return { data, summZaprosAll, allDay, nowDate }
     },
     zaprosCheck () {
       const data = this.item.attributes.zaprosy_vrachejs.data

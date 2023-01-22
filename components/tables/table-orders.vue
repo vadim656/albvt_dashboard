@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-md overflow-hidden border border-gray-400 drop-shadow-lg">
+  <div class="rounded-md  border border-gray-400 drop-shadow-lg">
     <table class="min-w-full divide-y divide-gray-200  ">
       <thead class="bg-gray-50 border-b border-gray-400">
         <tr>
@@ -57,18 +57,19 @@ export default {
   },
   computed: {
     sortOrders () {
-      const dataSort = this.data.sort(function (a, b) {
-        if (a.attributes.StatusOplata < b.attributes.StatusOplata) {
-          return 1
-        }
-        if (a.attributes.Status > b.attributes.Status) {
-          return 1
-        }
-        if (a.attributes.StatusOplata > b.attributes.Status) {
-          return 1
-        }
-        return 0
-      })
+      const dataSort = this.data
+      // .sort(function (a, b) {
+      //   if (a.attributes.StatusOplata < b.attributes.StatusOplata) {
+      //     return 1
+      //   }
+      //   if (a.attributes.Status > b.attributes.Status) {
+      //     return 1
+      //   }
+      //   if (a.attributes.StatusOplata > b.attributes.Status) {
+      //     return 1
+      //   }
+      //   return 0
+      // })
       return dataSort
     }
   }

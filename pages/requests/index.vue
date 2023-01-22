@@ -101,9 +101,10 @@
     <div class="w-full flex flex-col gap-2">
       <section class="flex flex-col gap-4">
         <div
-          class="rounded-md overflow-hidden border border-gray-400 drop-shadow-lg"
+          class=""
         >
           <table-reqs
+          class=""
             v-if="zaprosyVrachejs !== undefined"
             :data_req="reqsResult"
           />

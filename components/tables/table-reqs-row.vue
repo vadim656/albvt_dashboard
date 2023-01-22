@@ -22,7 +22,7 @@
       <span>{{ dateConf }}</span>
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-right  group-hover:bg-gray-200 text-gray-900  anime "
+      class="px-4 py-4 whitespace-nowrap text-sm   group-hover:bg-gray-200 text-gray-900  anime "
     >
       {{ req.attributes.Summ.toLocaleString('ru-RU') }}₽
     </td>

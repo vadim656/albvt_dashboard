@@ -1,5 +1,5 @@
 query SEARCH_PACIENT($FIO: String) {
-  usersPermissionsUsers(filters: { FIO_user: { containsi: $FIO } and : {RoleUser : {eq : "Vrach"}} }) {
+  usersPermissionsUsers(filters: { FIO_user: { containsi: $FIO } and : {RoleUser : {eq : "Pacient"}} }) {
     data {
       id
       attributes {

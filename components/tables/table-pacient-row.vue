@@ -4,9 +4,9 @@
       {{ user.id }}
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
-      <span v-if="user.attributes.FIO_user !== null">
+      <nuxt-link :to="/pacient/ + user.id" v-if="user.attributes.FIO_user !== null">
         {{ setName }}
-      </span>
+      </nuxt-link>
       <span v-else class="text-red-500">Ошибка в ФИО!</span>
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
