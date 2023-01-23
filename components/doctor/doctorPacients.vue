@@ -6,29 +6,26 @@
       {{ item.id }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ item.attributes.FIO_user }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ summOrders }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ summOrdersDone }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap flex items-center flex-wrap gap-3 text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
-      <button
-        class="font-medium text-gray-900 tracking-wider  group-hover:text-white anime rounded-md"
-      >
-        Подробнее
-      </button>
+      <nuxt-link :to="'/pacient/' + item.id">Подробнее</nuxt-link>
     </td>
+
   </tr>
 </template>
 

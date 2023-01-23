@@ -19,7 +19,7 @@
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
           Заказы<br />
-          <span class="text-xs"> Сегодня / Всего</span>
+          <span class="text-xs"> Всего / Сегодня</span>
         </th>
         <th
           scope="col"
@@ -51,8 +51,8 @@
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          Всего<br />
-          <span class="text-xs"> пациенты</span>
+           Пациенты<br />
+          <span class="text-xs">всего</span>
         </th>
         <th
           scope="col"

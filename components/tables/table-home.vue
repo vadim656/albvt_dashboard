@@ -18,6 +18,12 @@
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
+          Город
+        </th>
+        <th
+          scope="col"
+          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+        >
           Адрес
         </th>
         <th
@@ -40,7 +46,7 @@
         </th>
         <th
           scope="col"
-          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+          class="px-4 py-3 text-right text-sm align-top font-medium text-gray-600  tracking-wider"
         >
           Действия
         </th>

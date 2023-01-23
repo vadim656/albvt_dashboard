@@ -1,75 +1,66 @@
 <template>
   <div class="flex w-full flex-col gap-6">
-    <nav class="grid grid-cols-[5fr,4fr] gap-1">
-      <section class="col-span-1 flex items-center">
-        <div class="flex justify-between w-full">
-          <!-- <div
-            class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
-          >
-
-            <client-only
-              ><VueDatePicker
-                :value="date"
-                v-model="date"
-                :locale="locale"
-                placeholder="Выберите интервал"
-                range
-            /></client-only>
-          </div> -->
-        </div>
-      </section>
-
-      <section class="relative col-span-1">
-        <input
-          type="text"
-          @input="search($event.target.value)"
-          v-model="searchInput"
-          class="w-full border rounded-md p-2"
-          placeholder="Поиск по врачам"
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-4 h-4 absolute top-3 right-3"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+    <nav class="flex justify-end w-full items-center gap-1">
+      <section class=" w-full flex justify-end gap-4">
+       <div class="relative w-full max-w-[360px]">
+          <input
+            type="text"
+            @input="search($event.target.value)"
+            v-model="searchInput"
+            class="w-full border rounded-md p-2"
+            placeholder="Поиск по врачам"
           />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 absolute top-3 right-3"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
 
-        <div
-          v-if="searchResults"
-          v-click-outside="externalClick"
-          class="absolute top-10  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
-        >
-          <div class="flex flex-col -gap-1">
-            <nuxt-link
-              :to="`/vrach/` + item.id"
-              v-for="item in searchResults"
-              :key="item.id"
-              class="py-3 border-b border-[#212121]/30 grid content-center grid-cols-[1fr,7fr,3fr]  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
-            >
-              <div class="w-full flex items-center">
-                <span class="text-left text-xs">ID {{ item.id }} </span>
-              </div>
-              <div class="w-full flex items-center">
-                <span class="text-left font-bold text-sm truncate ">
-                  {{ item.attributes.FIO_user }}
-                </span>
-              </div>
-              <!-- <div class="w-full flex items-center  flex-end">
+          <div
+            v-if="searchResults"
+            v-click-outside="externalClick"
+            class="absolute top-12  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
+          >
+            <div class="flex flex-col -gap-1">
+              <nuxt-link
+                :to="`/vrach/` + item.id"
+                v-for="item in searchResults"
+                :key="item.id"
+                 class="py-3 border-b border-[#212121]/30 flex flex-col  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
+              >
+                <div class="w-full flex items-center">
+                  <span class="text-left text-xs">ID {{ item.id }} </span>
+                </div>
+                <div class="w-full flex items-center">
+                  <span class="text-left font-bold text-sm truncate ">
+                    {{ item.attributes.FIO_user }}
+                  </span>
+                </div>
+                <!-- <div class="w-full flex items-center  flex-end">
                 <span class=" text-sm text-right text-[#343434]/70  w-full">{{
                   item.attributes.users_permissions_user.data.attributes
                     .speczialnosts.data[0].attributes.Name
                 }}</span>
               </div> -->
-            </nuxt-link>
+              </nuxt-link>
+            </div>
           </div>
+        </div>
+        <div
+          v-if="usersPermissionsUsersVrach"
+          class=" flex justify-center items-center gap-2"
+        >
+          Всего:
+          <span>{{ usersPermissionsUsersVrach.meta.pagination.total }}</span>
         </div>
       </section>
     </nav>
@@ -97,6 +88,7 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import aSelect from '~/components/a-select.vue'
 import { VueDatePicker } from '@mathieustan/vue-datepicker'
 import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css'
@@ -132,6 +124,23 @@ export default {
           }
         }
       }
+    },
+    usersPermissionsUsersVrach: {
+      query: gql`
+        query ALL_VRACHI_STAT {
+          usersPermissionsUsersVrach: usersPermissionsUsers(
+            filters: { RoleUser: { eq: "Vrach" } }
+          ) {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 10000
     }
   },
   middleware: 'auth',
@@ -194,7 +203,6 @@ export default {
     }
   },
   computed: {
-    
     DateIso () {
       const d = new Date(this.date.end)
       d.setDate(d.getDate() + 1)

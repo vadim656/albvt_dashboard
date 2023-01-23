@@ -1,0 +1,21 @@
+query SEARCH_ZAPROS($UID: String){
+  zaprosyVrachejs(filters : {
+    UID: {
+      containsi: $UID
+    }
+  }) {
+    data{
+      id
+      attributes{
+        UID
+        users_permissions_user{
+          data{
+            attributes{
+              FIO_user
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,20 +1,18 @@
 <template>
   <div class="flex w-full flex-col gap-6">
-    <nav class="grid grid-cols-[5fr,4fr] gap-1">
-      <section class="col-span-1 flex items-center">
+    <nav class="flex flex-nowrap justify-between  gap-3 w-full">
+      <section class=" flex w-full items-center">
         <div class="flex justify-between w-full">
-          <div
-            class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
-          >
+          <div class=" gap-1  flex w-full font-semibold text-[#343434]">
             <a-select
               :options="[
-                'Статус: Оплачен',
-                'Статус: Ожидает оплаты',
-                'Статус: Ожидает подтверждения',
-                'Статус: Все'
+                'Оплачен',
+                'Ожидает оплаты',
+                'Ожидает подтверждения',
+                'Все'
               ]"
-              :default="'Статус: Все'"
-              class="!max-w-[300px]"
+              :default="'Все'"
+              class="!max-w-[240px]"
               @input="select1($event)"
             />
             <client-only
@@ -29,7 +27,6 @@
               @click="reloadPage"
               class="p-2 rounded-md bg-[#4F4F4F] text-white flex items-center gap-1 text-sm"
             >
-              Сбросить
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -49,56 +46,67 @@
         </div>
       </section>
 
-      <section class="relative col-span-1">
-        <input
-          type="text"
-          @input="search($event.target.value)"
-          v-model="searchInput"
-          class="w-full border rounded-md p-2"
-          placeholder="№ заказа"
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-4 h-4 absolute top-3 right-3"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+      <section class=" w-full flex justify-end gap-4">
+        <div class="relative w-full max-w-[360px]">
+          <input
+            type="text"
+            @input="search($event.target.value)"
+            v-model="searchInput"
+            class="w-full border rounded-md p-2"
+            placeholder="№ заказа"
           />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 absolute top-3 right-3"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
 
-        <div
-          v-if="searchResults"
-          v-click-outside="externalClick"
-          class="absolute top-10  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
-        >
-          <div class="flex flex-col -gap-1">
-            <div
-              v-for="item in searchResults"
-              :key="item.id"
-              class="py-3 border-b border-[#212121]/30 grid content-center grid-cols-[1fr,4fr]  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
-            >
-              <div class="w-full flex items-center">
-                <nuxt-link :to="`/orders/` + item.id" class="text-left text-sm"
-                  >№ {{ item.attributes.UID }}</nuxt-link
-                >
-              </div>
-              <div class="w-full flex items-center">
-                <nuxt-link
-                  :to="`/pacient/` + item.attributes.users.data[0].id"
-                  class="text-left font-bold text-sm truncate "
-                  >{{
-                    item.attributes.users.data[0].attributes.FIO_user
-                  }}</nuxt-link
-                >
+          <div
+            v-if="searchResults"
+            v-click-outside="externalClick"
+            class="absolute top-10  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
+          >
+            <div class="flex flex-col -gap-1">
+              <div
+                v-for="item in searchResults"
+                :key="item.id"
+                class="py-3 border-b border-[#212121]/30 flex flex-col  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
+              >
+                <div class="w-full flex items-center">
+                  <nuxt-link
+                    :to="`/orders/` + item.id"
+                    class="text-left text-sm hover:text-blue-500 anime"
+                    >№ {{ item.attributes.UID }}</nuxt-link
+                  >
+                </div>
+                <div class="w-full flex items-center">
+                  <nuxt-link
+                    :to="`/pacient/` + item.attributes.users.data[0].id"
+                    class="text-left font-bold text-sm truncate  hover:text-blue-500 anime"
+                    >{{
+                      item.attributes.users.data[0].attributes.FIO_user
+                    }}</nuxt-link
+                  >
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div
+          v-if="allorders"
+          class=" flex justify-center items-center gap-2 text-sm"
+        >
+          Всего:
+          <span>{{ allorders.meta.pagination.total }}</span>
         </div>
       </section>
     </nav>
@@ -119,7 +127,6 @@
         </button>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -127,7 +134,6 @@
 import gql from 'graphql-tag'
 import aSelect from '~/components/a-select.vue'
 import tableOrders from '../../components/tables/table-orders.vue'
-import ORDERS from '../../gql/queries/ORDERS.gql'
 import vClickOutside from 'v-click-outside'
 import SEARCH_ORDER from '~/gql/queries/SEARCH_ORDER.gql'
 import { VueDatePicker } from '@mathieustan/vue-datepicker'
@@ -159,6 +165,21 @@ export default {
           LTE: this.DateIso.end
         }
       }
+    },
+    allorders: {
+      query: gql`
+        query ORDERS {
+          allorders: orders {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 2000
     }
   },
   data () {
@@ -170,7 +191,7 @@ export default {
       searchInput: '',
       searchResults: null,
       loading: true,
-      ActiveSelect: 'Статус: Все'
+      ActiveSelect: 'Все'
     }
   },
   computed: {
@@ -356,13 +377,13 @@ export default {
           }
         }
       `
-      if (this.ActiveSelect == 'Статус: Все') {
+      if (this.ActiveSelect == 'Все') {
         return s1
-      } else if (this.ActiveSelect == 'Статус: Оплачен') {
+      } else if (this.ActiveSelect == 'Оплачен') {
         return s2
-      } else if (this.ActiveSelect == 'Статус: Ожидает оплаты') {
+      } else if (this.ActiveSelect == 'Ожидает оплаты') {
         return s3
-      } else if (this.ActiveSelect == 'Статус: Ожидает подтверждения') {
+      } else if (this.ActiveSelect == 'Ожидает подтверждения') {
         return s4
       }
     },
@@ -379,7 +400,7 @@ export default {
         const d2 = new Date()
         d2.setDate(d2.getDate() + 1)
         const d1 = new Date()
-        d1.setDate(d1.getDate() - 10)
+        d1.setDate(d1.getDate() - 100)
         const date = {
           start: d1.toISOString(),
           end: d2.toISOString()

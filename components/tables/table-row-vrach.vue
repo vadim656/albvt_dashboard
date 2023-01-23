@@ -1,12 +1,12 @@
 <template>
   <tr class="  bg-white group  anime cursor-pointer" v-if="orders">
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ item.id }}
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
       <nuxt-link prefetch :to="'/vrach/' + item.id">
         {{
@@ -18,38 +18,42 @@
       </nuxt-link>
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
-      <span>{{summOrders.nowDate.length}} / {{ summOrders.data.length }}</span>
-    </td>
-    <td
-      class="px-4 py-2 whitespace-nowrap text-sm font-bold text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
-    >
-      <span
-        >{{ summOrders.summZaprosAll }}<br /><span class="text-xs font-normal">
-          {{ item.attributes.Stavka }}%
-        </span></span
+      <span>
+        {{ summOrders.data.length }}
+        <sup>{{ summOrders.nowDate.length }}</sup></span
       >
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm font-bold text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
-      <span>
-        {{ allZapros.toLocaleString('ru-RU') }}
+      <span
+        >{{ summOrders.summZaprosAll.toLocaleString('ru-RU') }}
+        <span class="font-normal">
+          <sup>{{ item.attributes.Stavka }}%</sup>
+        </span>
       </span>
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
-      {{ allZaprosDone }}
+      <span>
+        {{ parseInt(allZapros).toLocaleString('ru-RU') }}
+      </span>
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
-      {{ allZaprosFalse }}
+      {{ parseInt(allZaprosDone).toLocaleString('ru-RU') }}
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+    >
+      {{ parseInt(allZaprosFalse).toLocaleString('ru-RU') }}
+    </td>
+    <td
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
       <span v-if="item.attributes.Pacientis.data.length">
         {{ item.attributes.Pacientis.data.length }}
@@ -57,7 +61,7 @@
       <span v-else>0</span>
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
     >
       <span v-if="item.attributes.speczialnosts.data.length">{{
         item.attributes.speczialnosts.data[0].attributes.Name
@@ -65,7 +69,7 @@
       <span v-else>Нет специальности</span>
     </td>
     <td
-      class="px-4 py-2 whitespace-nowrap text-right group-hover:text-white anime  group-hover:bg-blue-500"
+      class="px-4 py-4 whitespace-nowrap text-right group-hover:text-white anime  group-hover:bg-blue-500"
     >
       <nuxt-link
         prefetch
@@ -79,7 +83,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6 text-green-500"
+          class="w-6 h-6 text-gray-500"
         >
           <path
             stroke-linecap="round"
@@ -191,7 +195,11 @@ export default {
           today.getDate()
         ).valueOf()
 
-        const x = new Date(day.getFullYear(), day.getMonth(), day.getDate()).valueOf()
+        const x = new Date(
+          day.getFullYear(),
+          day.getMonth(),
+          day.getDate()
+        ).valueOf()
         if (todayDay == x) {
           nowDate.push(x)
         } else {

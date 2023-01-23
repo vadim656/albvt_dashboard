@@ -3,7 +3,8 @@
     <td
       class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-gray-200 text-gray-900  anime "
     >
-      {{ req.attributes.UID }}
+    <nuxt-link :to="`/requests/` + req.id"> {{ req.attributes.UID }}</nuxt-link>
+     
     </td>
     <td
       class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
@@ -119,16 +120,10 @@
           </div>
           <div class="flex flex-wrap gap-2 items-start text-sm">
             <button
-              @click="updatereqStatus(req.id)"
-              v-if="req.attributes.Done == false"
               class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
             >
-              Оплатить запрос
-            </button>
-            <button
-              class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
-            >
-              Подробнее
+            <nuxt-link :to="`/requests/` + req.id">Подробнее</nuxt-link>
+              
             </button>
           </div>
         </a-modal-order>

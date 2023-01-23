@@ -6,12 +6,12 @@
       {{ item.attributes.UID }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ dateRu }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ item.attributes.Summ }}
     </td>
@@ -21,10 +21,10 @@
       <span
         v-if="item.attributes.Done == true"
         class="text-green-500 group-hover:text-white anime"
-        >Оплачен</span
+        >Переведено</span
       >
       <span v-else class="text-red-500 group-hover:text-white anime"
-        >Не оплачен</span
+        >Ожидает оплаты</span
       >
     </td>
     <td
@@ -35,8 +35,16 @@
         v-if="item.attributes.Done == false"
         class="font-medium text-gray-900 tracking-wider  group-hover:text-white anime rounded-md"
       >
-        Оплатить
+        Перевести
       </button>
+      <a
+        :href="`https://api.albvt.ru` + item.attributes.oplataCheck.data[0].attributes.url"
+        target="_blank"
+        v-if="item.attributes.Done == true"
+        class="font-medium text-gray-900 tracking-wider  group-hover:text-white anime rounded-md"
+      >
+        Чек
+      </a>
       <a-modal ref="modal" class="text-gray-900">
         <form @submit.prevent="handleFileUpload()" class="flex flex-col gap-4">
           Оплата по запросу
@@ -173,7 +181,7 @@ export default {
   computed: {
     dateRu () {
       var date = new Date(this.item.attributes.createdAt)
-      return date.toLocaleString('ru', this.options)
+      return date.toLocaleString('en-GB')
     }
   }
 }

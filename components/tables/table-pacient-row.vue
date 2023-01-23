@@ -12,10 +12,10 @@
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
       <span>{{ getOrders }}</span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm font-bold text-gray-600">
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
       <span>{{ getSummOrders.toLocaleString('ru-RU') }}₽</span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm font-bold text-gray-600">
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
       <span>{{ getPayOrders.toLocaleString('ru-RU') }}₽</span>
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">

@@ -36,13 +36,15 @@ body {
   color: #fff;
   border-radius: 6px;
   padding-left: 1rem;
-  max-width: 350px !important;
+  width: 320px !important;
+  max-width: 320px !important;
 }
 
-/* .vd-wrapper {
-  @apply bg-[#4F4F4F] hover:bg-[#5B5B5B] anime text-white text-sm
-} */
 
 a.nuxt-link-exact-active {
   @apply text-blue-600;
+}  
+
+#sidebar a.nuxt-link-exact-active {
+  @apply text-white bg-blue-500;
 }  

@@ -1,0 +1,36 @@
+query ZAPROS_ID($ID: ID) {
+  zaprosyVrachej(id: $ID) {
+    data {
+      id
+      attributes {
+        UID
+        Summ
+        createdAt
+        Done
+        oplataCheck {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        zakazies {
+          data {
+            id
+            attributes {
+              UID
+              SummOrder
+            }
+          }
+        }
+        users_permissions_user {
+          data {
+            attributes {
+              FIO_user
+            }
+          }
+        }
+      }
+    }
+  }
+}

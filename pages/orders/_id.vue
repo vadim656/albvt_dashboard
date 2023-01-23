@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-back/>
     <div v-if="order" class="flex flex-col gap-4">
       <div class="flex justify-between items-center w-full">
         <div class="flex flex-col gap-1">
@@ -13,7 +14,7 @@
         </div>
         <div class="flex flex-col items-end gap-1">
           <span class="text-main font-medium"
-            >{{ order.data.attributes.SummOrder }} ₽</span
+            >{{ order.data.attributes.SummOrder.toLocaleString('ru-RU') }}₽</span
           >
         </div>
       </div>
@@ -46,7 +47,7 @@
               <span>{{ item.attributes.Name }}</span>
             </td>
             <td class="px-4 py-2 whitespace-nowrap text-sm text-right ">
-              {{ item.attributes.Price }} ₽
+              {{ item.attributes.Price.toLocaleString('ru-RU') }}₽
             </td>
           </tr>
           <!-- bio -->
@@ -60,7 +61,7 @@
               <span>{{ bioItem.Name }}</span>
             </td>
             <td class="px-4 py-2 whitespace-nowrap text-sm text-right ">
-              {{ bioItem.Price }} ₽
+              {{ bioItem.Price.toLocaleString('ru-RU') }}₽
             </td>
           </tr>
           <!-- itogo -->
@@ -71,7 +72,7 @@
             <td
               class="px-4 pt-2 pb-2  whitespace-nowrap text-sm text-right "
             >
-              {{ price.itogoDiscont }} ₽
+              {{ price.itogoDiscont.toLocaleString('ru-RU') }}₽
             </td>
           </tr>
           <!-- itogo -->
@@ -80,7 +81,7 @@
               <span>Итого с учетом скидки 10%:</span>
             </td>
             <td class="px-4 py-2 whitespace-nowrap text-sm text-right ">
-              {{ order.data.attributes.SummOrder }} ₽
+              {{ order.data.attributes.SummOrder.toLocaleString('ru-RU') }}₽
             </td>
           </tr>
         </tbody>
@@ -92,7 +93,9 @@
 
 <script>
 import ORDER_ID from '~/gql/queries/ORDER_ID.gql'
+import bBack from '../../components/b-back.vue'
 export default {
+  components: { bBack },
   middleware: 'auth',
   layout: 'main',
   apollo: {

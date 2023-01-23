@@ -1,15 +1,13 @@
 <template>
   <div class="flex w-full flex-col gap-6">
-    <nav class="grid grid-cols-[5fr,4fr] gap-1">
-      <section class="col-span-1 flex items-center">
+    <nav class="flex flex-nowrap justify-between  gap-3 w-full">
+      <section class="flex  items-center w-full">
         <div class="flex justify-between w-full">
-          <div
-            class=" gap-1  flex flex-wrap w-full font-semibold text-[#343434]"
-          >
+          <div class=" gap-1  flex w-full font-semibold text-[#343434]">
             <a-select
-              :options="['Оплата: Да', 'Оплата: Нет', 'Оплата: Все']"
-              :default="'Оплата: Все'"
-              class=""
+              :options="['Оплачен', 'Ожидает оплаты', 'Все']"
+              :default="'Все'"
+              class="!max-w-[180px]"
               @input="select1($event)"
             />
             <client-only
@@ -24,7 +22,6 @@
               @click="reloadPage"
               class="p-2 rounded-md bg-[#4F4F4F] text-white flex items-center gap-1 text-sm"
             >
-              Сбросить
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -44,67 +41,73 @@
         </div>
       </section>
 
-      <section class="relative col-span-1">
-        <input
-          type="text"
-          @input="search($event.target.value)"
-          v-model="searchInput"
-          class="w-full border rounded-md p-2"
-          placeholder="Поиск по запросам"
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-4 h-4 absolute top-3 right-3"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+      <section class=" w-full flex justify-end gap-4">
+        <div class="relative w-full max-w-[360px]">
+          <input
+            type="text"
+            @input="search($event.target.value)"
+            v-model="searchInput"
+            class="w-full border rounded-md p-2"
+            placeholder="Поиск по запросам"
           />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 absolute top-3 right-3"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
 
-        <div
-          v-if="searchResults"
-          v-click-outside="externalClick"
-          class="absolute top-10  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
-        >
-          <div class="flex flex-col -gap-1">
-            <nuxt-link
-              :to="`/vrach/` + item.id"
-              v-for="item in searchResults"
-              :key="item.id"
-              class="py-3 border-b border-[#212121]/30 grid content-center grid-cols-[1fr,7fr,3fr]  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
-            >
-              <div class="w-full flex items-center">
-                <span class="text-left text-xs">ID {{ item.id }} </span>
-              </div>
-              <div class="w-full flex items-center">
-                <span class="text-left font-bold text-sm truncate ">
-                  {{ item.attributes.FIO_user }}
-                </span>
-              </div>
-              <!-- <div class="w-full flex items-center  flex-end">
-                <span class=" text-sm text-right text-[#343434]/70  w-full">{{
-                  item.attributes.users_permissions_user.data.attributes
-                    .speczialnosts.data[0].attributes.Name
-                }}</span>
-              </div> -->
-            </nuxt-link>
+          <div
+            v-if="searchResults"
+            v-click-outside="externalClick"
+            class="absolute top-10  bg-white drop-shadow-md rounded-md z-[99] w-full overflow-hidden"
+          >
+            <div class="flex flex-col -gap-1">
+              <nuxt-link
+                :to="`/requests/` + item.id"
+                v-for="item in searchResults"
+                :key="item.id"
+                class="py-3 border-b border-[#212121]/30 flex flex-col  cursor-pointer  gap-2 w-full hover:bg-[#212121]/10 anime p-2"
+              >
+                <div class="w-full flex items-center">
+                  <span class="text-left text-xs">
+                    {{
+                      item.attributes.users_permissions_user.data.attributes
+                        .FIO_user
+                    }}</span
+                  >
+                </div>
+                <div class="w-full flex items-center">
+                  <span class="text-left font-bold text-sm truncate ">
+                    № {{ item.attributes.UID }}
+                  </span>
+                </div>
+              </nuxt-link>
+            </div>
           </div>
+        </div>
+        <div
+          v-if="allreqs"
+          class=" flex justify-center items-center gap-2 text-sm"
+        >
+          Всего:
+          <span>{{ allreqs.meta.pagination.total }}</span>
         </div>
       </section>
     </nav>
     <div class="w-full flex flex-col gap-2">
       <section class="flex flex-col gap-4">
-        <div
-          class=""
-        >
+        <div class="">
           <table-reqs
-          class=""
+            class=""
             v-if="zaprosyVrachejs !== undefined"
             :data_req="reqsResult"
           />
@@ -122,6 +125,7 @@ import { VueDatePicker } from '@mathieustan/vue-datepicker'
 import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css'
 import vClickOutside from 'v-click-outside'
 import TableReqs from '~/components/tables/table-reqs.vue'
+import SEARCH_ZAPROS from '~/gql/queries/SEARCH_ZAPROS.gql'
 
 let options = {
   year: 'numeric',
@@ -144,6 +148,21 @@ export default {
           LTE: this.DateIso.end
         }
       }
+    },
+    allreqs: {
+      query: gql`
+        query ALL_VRACHI_STAT {
+          allreqs: zaprosyVrachejs {
+            meta {
+              pagination {
+                total
+              }
+            }
+          }
+        }
+      `,
+      loadingKey: 'loading',
+      pollInterval: 10000
     }
   },
   data () {
@@ -155,7 +174,7 @@ export default {
       searchResults: null,
       isDays: false,
       loading: true,
-      ActiveSelect: 'Оплата: Все'
+      ActiveSelect: 'Все'
     }
   },
   directives: {
@@ -178,9 +197,9 @@ export default {
         const lowerCase = value[0].toUpperCase() + value.slice(1)
         try {
           const res = await this.$apollo.query({
-            query: SEARCH_VRACH,
+            query: SEARCH_ZAPROS,
             variables: {
-              FIO: lowerCase
+              UID: lowerCase
             }
           })
 
@@ -280,11 +299,11 @@ export default {
           }
         }
       `
-      if (this.ActiveSelect == 'Оплата: Да') {
+      if (this.ActiveSelect == 'Оплачен') {
         return s1
-      } else if (this.ActiveSelect == 'Оплата: Нет') {
+      } else if (this.ActiveSelect == 'Ожидает оплаты') {
         return s2
-      } else if (this.ActiveSelect == 'Оплата: Все') {
+      } else if (this.ActiveSelect == 'Все') {
         return s3
       }
     },
@@ -301,7 +320,7 @@ export default {
         const d2 = new Date()
         d2.setDate(d2.getDate() + 1)
         const d1 = new Date()
-        d1.setDate(d1.getDate() - 10)
+        d1.setDate(d1.getDate() - 100)
         const date = {
           start: d1.toISOString(),
           end: d2.toISOString()

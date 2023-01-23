@@ -24,11 +24,11 @@
                 placeholder="Выберите интервал"
                 range
             /></client-only>
-             <button
+            <button
               @click="reloadPage"
               class="p-2 rounded-md bg-[#4F4F4F] text-white flex items-center gap-1 text-sm"
             >
-              Сбросить
+              
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -50,9 +50,7 @@
     </nav>
     <div class="w-full flex flex-col gap-2">
       <section class="flex flex-col gap-4">
-        <div
-          class=" border border-gray-400 drop-shadow-lg"
-        >
+        <div class=" border border-gray-400 drop-shadow-lg">
           <table-home
             v-if="gorodaInvitros !== undefined"
             :data_home="homeResult"
@@ -201,6 +199,19 @@ export default {
                     }
                   }
                 }
+                area_invitro {
+                  data {
+                    attributes {
+                      sityes_invitros {
+                        data {
+                          attributes {
+                            Name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -245,6 +256,19 @@ export default {
                     }
                   }
                 }
+                area_invitro {
+                  data {
+                    attributes {
+                      sityes_invitros {
+                        data {
+                          attributes {
+                            Name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -286,6 +310,19 @@ export default {
                     attributes {
                       SummOrder
                       createdAt
+                    }
+                  }
+                }
+                area_invitro {
+                  data {
+                    attributes {
+                      sityes_invitros {
+                        data {
+                          attributes {
+                            Name
+                          }
+                        }
+                      }
                     }
                   }
                 }

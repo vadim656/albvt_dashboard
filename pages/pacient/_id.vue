@@ -1,6 +1,7 @@
 <template>
-  <div class="flex w-full flex-col gap-6" v-if="usersPermissionsUser">
-    <section class="grid grid-cols-2 border-b border-gray-300 pb-2">
+  <div class="flex w-full flex-col" v-if="usersPermissionsUser">
+  <b-back/>
+    <section class="grid grid-cols-[2fr,3fr] border-b border-gray-300 pb-2">
       <div class="flex flex-col justify-between gap-4">
         <div class="text-2xl font-semibold">
           {{ usersPermissionsUser.data.attributes.FIO_user }}
@@ -8,7 +9,7 @@
 
         <div class="flex gap-3 font-medium text-gray-900 tracking-wider">
           <span
-            class="flex justify-center items-center px-4 py-2 rounded-md border-2 border-blue-200"
+            class="text-sm  flex justify-center items-center px-4 py-2 rounded-md border-2 border-blue-200"
             :class="[activeTab == 2 ? 'bg-blue-200' : 'bg-transparent']"
             @click="activeTab = 2"
           >
@@ -18,20 +19,20 @@
       </div>
       <div class="grid grid-cols-3 gap-4">
         <div class="flex flex-col gap-1">
-          <span class="text-sm">Телефон:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">Телефон:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.Phone
           }}</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-sm">Дата рождения:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">Дата рождения:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.DataRozgdeniya
           }}</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-sm">E-mail:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">E-mail:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.email
           }}</span>
         </div>
@@ -98,10 +99,11 @@
 
 <script>
 import USER_ID from '~/gql/queries/USER_ID.gql'
+import BBack from '../../components/b-back.vue'
 import tablePacientOrders from '../../components/pacient/table-pacient-orders.vue'
 
 export default {
-  components: { tablePacientOrders },
+  components: { tablePacientOrders, BBack },
   middleware: 'auth',
   layout: 'main',
   data () {

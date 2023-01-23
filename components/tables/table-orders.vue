@@ -58,18 +58,6 @@ export default {
   computed: {
     sortOrders () {
       const dataSort = this.data
-      // .sort(function (a, b) {
-      //   if (a.attributes.StatusOplata < b.attributes.StatusOplata) {
-      //     return 1
-      //   }
-      //   if (a.attributes.Status > b.attributes.Status) {
-      //     return 1
-      //   }
-      //   if (a.attributes.StatusOplata > b.attributes.Status) {
-      //     return 1
-      //   }
-      //   return 0
-      // })
       return dataSort
     }
   }

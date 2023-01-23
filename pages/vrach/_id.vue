@@ -1,7 +1,8 @@
 <template>
   <div class="text-gray-800" v-if="usersPermissionsUser">
+  <b-back/>
     <span v-if="!usersPermissionsUser">Загрузка...</span>
-    <section class="grid grid-cols-2 border-b border-gray-300 pb-2">
+    <section class="grid grid-cols-[2fr,3fr] border-b border-gray-300 pb-2">
       <div class="flex flex-col justify-between gap-4">
         <div class="text-2xl font-semibold">
           {{ usersPermissionsUser.data.attributes.FIO_user }}
@@ -10,7 +11,7 @@
         <div class="flex gap-3 font-medium text-gray-900 tracking-wider">
           
           <button
-            class="flex justify-center items-center px-4 py-2 rounded-md border-2 border-blue-200"
+            class="text-sm flex justify-center items-center px-4 py-2 rounded-md border-2 border-blue-200"
             :class="[activeTab == 2 ? 'bg-blue-200' : 'bg-transparent']"
             @click="activeTab = 2"
           >
@@ -19,7 +20,7 @@
             }})
           </button>
           <button
-            class="flex justify-center items-center px-4 py-2 rounded-md border-2 border-blue-200"
+            class="text-sm flex justify-center items-center px-4 py-2 rounded-md border-2 border-blue-200"
             :class="[activeTab == 1 ? 'bg-blue-200' : 'bg-transparent']"
             @click="activeTab = 1"
           >
@@ -29,22 +30,22 @@
           </button>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-3 gap-4 ">
         <div class="flex flex-col gap-1">
-          <span class="text-sm">Телефон:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">Телефон:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.Phone
           }}</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-sm">Дата рождения:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">Дата рождения:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.DataRozgdeniya
           }}</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-sm">E-mail:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">E-mail:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.email
           }}</span>
         </div>
@@ -52,8 +53,8 @@
           @click="closeModal"
           class="flex flex-col gap-1 relative cursor-pointer"
         >
-          <span class="text-sm">Ставка:</span>
-          <span class="font-semibold flex gap-1 items-center"
+          <span class="text-sm text-neutral-500">Ставка:</span>
+          <span class="font-semibold text-sm flex gap-1 items-center"
             >{{ usersPermissionsUser.data.attributes.Stavka }}%
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,14 +72,14 @@
           ></span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-sm">Промокод:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">Промокод:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.Promo
           }}</span>
         </div>
         <div class="flex flex-col gap-1">
-          <span class="text-sm">Специальность:</span>
-          <span class="font-semibold">{{
+          <span class="text-sm text-neutral-500">Специальность:</span>
+          <span class="font-semibold text-sm">{{
             usersPermissionsUser.data.attributes.speczialnosts.data[0]
               .attributes.Name
           }}</span>
@@ -102,6 +103,7 @@
               >
                 ФИО
               </th>
+
               <th
                 scope="col"
                 class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
@@ -115,12 +117,7 @@
                 Оплачено
               </th>
 
-              <th
-                scope="col"
-                class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
-              >
-                Действия
-              </th>
+              
             </tr>
           </thead>
           <tbody class=" divide-y divide-gray-400">
@@ -162,7 +159,7 @@
                   scope="col"
                   class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600  tracking-wider"
                 >
-                  UID
+                   № запроса
                 </th>
                 <th
                   scope="col"
@@ -242,9 +239,10 @@ import DoctorPacients from '../../components/doctor/doctorPacients.vue'
 import doctorZapros from '../../components/doctor/doctorZapros.vue'
 import VRACH_ID from '../../gql/queries/VRACH_ID.gql'
 import EDIT_STAVKA from '../../gql/mutations/EDIT_STAVKA.gql'
+import BBack from '../../components/b-back.vue'
 
 export default {
-  components: { doctorZapros, DoctorPacients, AModal },
+  components: { doctorZapros, DoctorPacients, AModal, BBack },
   middleware: 'auth',
   layout: 'main',
   apollo: {

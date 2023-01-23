@@ -3,22 +3,22 @@
     <td
       class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-gray-200 text-gray-900  anime "
     >
-
       {{ order.attributes.UID }}
     </td>
     <td
       class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
     >
-    <span v-if="order.attributes.users.data.length > 0">
-    <nuxt-link :to="/pacient/ + order.attributes.users.data[0].id">{{ order.attributes.users.data[0].attributes.FIO_user }}</nuxt-link>
-    </span>
-    <span v-else>Нет</span>
-    
+      <span v-if="order.attributes.users.data.length > 0">
+        <nuxt-link :to="/pacient/ + order.attributes.users.data[0].id">{{
+          order.attributes.users.data[0].attributes.FIO_user
+        }}</nuxt-link>
+      </span>
+      <span v-else>Нет</span>
     </td>
     <td
       class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
     >
-      {{ order.attributes.SummOrder }}₽
+      {{ order.attributes.SummOrder.toLocaleString('ru-RU') }}₽
     </td>
     <td
       class="px-4 py-4 whitespace-nowrap text-sm font-semibold group-hover:bg-gray-200 text-gray-900  anime "
@@ -168,10 +168,14 @@
             <button
               class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
             >
-            <nuxt-link :to="/orders/ + order.id">Состав</nuxt-link>
-              
+              <nuxt-link :to="/orders/ + order.id">Состав</nuxt-link>
             </button>
-            <button
+            <a
+              :href="
+                `https://api.albvt.ru/admin/content-manager/collectionType/api::order.order/` +
+                  order.id
+              "
+              target="_blank"
               v-if="
                 order.attributes.Status == true &&
                   order.attributes.StatusOplata == false
@@ -179,7 +183,7 @@
               class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
             >
               Результаты
-            </button>
+            </a>
           </div>
         </a-modal-order>
       </div>

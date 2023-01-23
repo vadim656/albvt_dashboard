@@ -6,14 +6,14 @@
       {{ item.attributes.UID }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
       {{ dateOrder }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
     >
-      {{ item.attributes.SummOrder }}
+      {{ item.attributes.SummOrder.toLocaleString('ru-RU') }}
     </td>
     <td
       class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
