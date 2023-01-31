@@ -12,7 +12,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "deploy": "yarn install && yarn build && pm2 delete API || true && pm2 start yarn --name=API -- start"
   },
   "dependencies": {
     "@mathieustan/vue-datepicker": "^0.2.11",
@@ -24,9 +25,11 @@
     "autoprefixer": "^10.4.13",
     "core-js": "^3.25.3",
     "graphql-tag": "^2.12.6",
+    "html2pdf.js": "^0.10.1",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.24",
     "postcss": "^8.4.19",
+    "pspdfkit": "^2022.5.5",
     "qs": "^6.11.0",
     "tailwindcss": "^3.2.4",
     "v-click-outside": "^3.2.0",

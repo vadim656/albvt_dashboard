@@ -1,30 +1,26 @@
 <template>
-  <tr class="  bg-white group  anime cursor-pointer">
+  <tr @click="pushRoute" class="  bg-white group cursor-pointer  anime">
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="anime-td anime font-bold"
     >
       {{ item.id }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="anime-td anime"
     >
       {{ item.attributes.FIO_user }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="anime-td anime"
     >
       {{ summOrders }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="anime-td anime"
     >
       {{ summOrdersDone }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
-    >
-      <nuxt-link :to="'/pacient/' + item.id">Подробнее</nuxt-link>
-    </td>
+
 
   </tr>
 </template>
@@ -66,7 +62,12 @@ export default {
       )
       return summZap
     }
-  }
+  },
+  methods: {
+     pushRoute () {
+      this.$router.push('/pacient/' + this.item.id).catch(() => {})
+    },
+  },
 }
 </script>
 

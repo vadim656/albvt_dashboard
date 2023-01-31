@@ -2,7 +2,7 @@
 query ALL_VRACHI {
   usersPermissionsUsers(
     filters: { RoleUser: { eq: "Vrach" } }
-    pagination: { limit: 100 }
+    pagination: { limit: 1000 }
   ) {
     meta {
       pagination {
@@ -31,10 +31,10 @@ query ALL_VRACHI {
             attributes {
               Summ
               Done
-              zakazies{
-                data{
+              zakazies {
+                data {
                   id
-                  attributes{
+                  attributes {
                     SummOrder
                     Status
                   }

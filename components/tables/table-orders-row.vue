@@ -1,28 +1,25 @@
 <template>
-  <tr class="  bg-white group  anime cursor-pointer">
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-gray-200 text-gray-900  anime "
-    >
-      {{ order.attributes.UID }}
+  <tr class="  bg-white group  anime  ">
+    <td @click="pushRoute" class="anime-td  anime font-bold ">
+      <span class="hover:text-blue-500 cursor-pointer">{{
+        order.attributes.UID
+      }}</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
-      <span v-if="order.attributes.users.data.length > 0">
+    <td class="anime-td  anime">
+      <span
+        v-if="order.attributes.users.data.length > 0"
+        class="hover:text-blue-500 anime"
+      >
         <nuxt-link :to="/pacient/ + order.attributes.users.data[0].id">{{
           order.attributes.users.data[0].attributes.FIO_user
         }}</nuxt-link>
       </span>
-      <span v-else>Нет</span>
+      <span v-else class="text-red-500">Ошибка</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td  anime">
       {{ order.attributes.SummOrder.toLocaleString('ru-RU') }}₽
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-semibold group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td  anime ">
       <div
         v-if="
           order.attributes.Status == true &&
@@ -94,11 +91,18 @@
         Ожидает подтверждения
       </div>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-gray-200 text-gray-900  anime "
-    >
-      <div class="relative w-6 h-6">
-        <div @click="openCTXMenu(order.id)">
+    <td class="anime-td  anime flex justify-end ">
+      <div class="relative w-6 h-6 ">
+        <div
+        class="cursor-pointer"
+          v-if="
+            (order.attributes.Status == true &&
+              order.attributes.StatusOplata == false) ||
+              (order.attributes.Status == false &&
+                order.attributes.StatusOplata == false)
+          "
+          @click="openCTXMenu(order.id)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -151,12 +155,8 @@
             >
               Подтвердить заказ
             </button>
-            <a
-              :href="
-                `https://api.albvt.ru/admin/content-manager/collectionType/api::order.order/` +
-                  order.id
-              "
-              target="_blank"
+            <nuxt-link
+              :to="`/orders/costructor/` + order.id"
               v-if="
                 order.attributes.Status == false &&
                   order.attributes.StatusOplata == false
@@ -164,12 +164,8 @@
               class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
             >
               Изменить заказ
-            </a>
-            <button
-              class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
-            >
-              <nuxt-link :to="/orders/ + order.id">Состав</nuxt-link>
-            </button>
+            </nuxt-link>
+
             <a
               :href="
                 `https://api.albvt.ru/admin/content-manager/collectionType/api::order.order/` +
@@ -184,6 +180,15 @@
             >
               Результаты
             </a>
+            <nuxt-link
+              v-if="
+                order.attributes.Status == true &&
+                  order.attributes.StatusOplata == false
+              "
+              class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
+              :to="`/orders/pismo/` + order.id"
+              >Письмо</nuxt-link
+            >
           </div>
         </a-modal-order>
       </div>
@@ -192,7 +197,7 @@
 </template>
 <script>
 import aModalOrder from '../a-modal-order.vue'
-import UPDATE_ORDER from '../../gql/mutations/UPDATE_ORDER.gql'
+import UPDATE_ORDER from '~/gql/mutations/UPDATE_ORDER.gql'
 
 export default {
   components: { aModalOrder },
@@ -214,6 +219,9 @@ export default {
         this.$refs.modalOrder.id = id
       }
     },
+    pushRoute () {
+      this.$router.push('/orders/' + this.order.id).catch(() => {})
+    },
     updateOrderStatus (id) {
       this.$apollo
         .mutate({
@@ -223,9 +231,10 @@ export default {
           }
         })
         .then(data => {
+          console.log(data);
           this.$toast.success('Подтвержение заказа: Успешно!', {
             position: 'top-right',
-            timeout: 3000,
+            timeout: 1000,
             closeOnClick: true,
             pauseOnFocusLoss: true,
             pauseOnHover: true,
@@ -237,7 +246,7 @@ export default {
         .catch(error => {
           this.$toast.error('Подтвержение заказа: Что то пошло не так!', {
             position: 'top-right',
-            timeout: 3000,
+            timeout: 1000,
             closeOnClick: true,
             pauseOnFocusLoss: true,
             pauseOnHover: true,

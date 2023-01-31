@@ -1,47 +1,34 @@
 <template>
-  <tr class="  bg-white group  anime cursor-pointer">
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-gray-200 text-gray-900  anime "
-    >
+  <tr class="  bg-white group  anime ">
+    <td class="anime-td anime">
       {{ item.id }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td anime">
       <span v-if="item.attributes.Invitro == true">Инвитро</span>
       <span v-else>Больница</span>
     </td>
-     <td 
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
-    <span v-if="item.attributes.area_invitro.data !== null"> {{item.attributes.area_invitro.data.attributes.sityes_invitros.data[0].attributes.Name}}</span>
-    <span v-else class="text-red-500 font-bold">Недозаполнили</span>
-     
+    <td class="anime-td anime">
+      <span v-if="item.attributes.area_invitro.data !== null">
+        {{
+          item.attributes.area_invitro.data.attributes.sityes_invitros.data[0]
+            .attributes.Name
+        }}</span
+      >
+      <span v-else class="text-red-500 font-bold">Недозаполнили</span>
     </td>
-    <td
-      :title="item.attributes.Name"
-      class="px-4 py-4 whitespace-nowrap text-sm truncate min-w-[300px] max-w-[300px]  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td :title="item.attributes.Name" class="anime-td anime">
       {{ item.attributes.Name }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td anime">
       {{ item.attributes.users.data.length }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td anime">
       {{ InfoOrders.allOrders.length }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-right  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td anime">
       {{ InfoOrders.summ.toLocaleString('ru-RU') }} ₽
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-gray-200 text-gray-900 flex justify-end  anime "
-    >
+    <td class="anime-td anime flex justify-end">
       <div class="relative w-6 h-6">
         <div @click="openCTXMenu(item.id)">
           <svg

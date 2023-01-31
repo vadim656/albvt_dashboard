@@ -1,0 +1,21 @@
+query ORDER_PROMO($PROMO: String) {
+  orders(filters: { PromoVrach: { eq: $PROMO } } pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        UID
+        PromoVrach
+        SummOrder
+        Status
+        createdAt
+        users{
+          data{
+            attributes{
+              FIO_user
+            }
+          }
+        }
+      }
+    }
+  }
+}

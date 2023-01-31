@@ -1,0 +1,16 @@
+mutation UPDATE_ORDER_COMSTRUCTOR($ID: ID!, $ANALIZ: [ID], $SUMM: Long) {
+  updateOrder(id: $ID, data: { analizies: $ANALIZ, SummOrder: $SUMM }) {
+    data {
+      attributes {
+        analizies {
+          data {
+            attributes {
+              UID
+              Name
+            }
+          }
+        }
+      }
+    }
+  }
+}

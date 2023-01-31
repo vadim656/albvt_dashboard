@@ -1,9 +1,10 @@
-query($GTE : DateTime, $LTE : DateTime) {
+query($GTE: DateTime, $LTE: DateTime) {
   usersPermissionsUsers(
     filters: {
       RoleUser: { eq: "Vrach" }
       and: { Pacientis: { zakazies: { createdAt: { gte: $GTE, lte: $LTE } } } }
     }
+    pagination: { limit: 1000 }
   ) {
     meta {
       pagination {
@@ -16,7 +17,7 @@ query($GTE : DateTime, $LTE : DateTime) {
         Promo
         Stavka
         FIO_user
-        zakazies{
+        zakazies {
           data {
             id
             attributes {

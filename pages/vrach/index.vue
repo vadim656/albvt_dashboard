@@ -213,6 +213,7 @@ export default {
       return date
     },
     userResult () {
+      
       return this.usersPermissionsUsers.data
     }
   }

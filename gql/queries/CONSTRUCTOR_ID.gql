@@ -1,0 +1,32 @@
+query CONSTRUCTOR_ID($ID: ID) {
+  order(id: $ID) {
+    data {
+      id
+      attributes {
+        createdAt
+        UID
+        SummOrder
+        StatusOplata
+        analizies {
+          data {
+            id
+            attributes {
+              Art
+              Name
+              Price
+              biomaterialies {
+                data {
+                  id
+                  attributes {
+                    Name
+                    Price
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

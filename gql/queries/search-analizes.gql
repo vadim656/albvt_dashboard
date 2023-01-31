@@ -1,0 +1,55 @@
+query SEARCH_ANALIZES($S_VALUE: String!) {
+  search(query: $S_VALUE) {
+    analizies {
+      data {
+        id
+        attributes {
+          Name
+          Art
+          Price
+          Active
+          Tags
+          DopAnalizes {
+            data {
+              id
+              attributes {
+                Name
+                Price
+                Art
+                biomaterialies {
+                  data {
+                    id
+                    attributes {
+                      Name
+                      Price
+                    }
+                  }
+                }
+              }
+            }
+          }
+          complecsAnaliz(pagination: { limit: 100 }) {
+            data {
+              id
+              attributes {
+                Name
+                Price
+                Art
+                Active
+              }
+            }
+          }
+          biomaterialies {
+            data {
+              id
+              attributes {
+                Price
+                Name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

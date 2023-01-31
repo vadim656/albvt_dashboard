@@ -42,7 +42,7 @@
                   d="M4.5 12.75l6 6 9-13.5"
                 />
               </svg>
-              Оплачен
+              Переведен
             </div>
             <div
               v-else-if="zaprosyVrachej.data.attributes.Done == false"
@@ -63,7 +63,7 @@
                 />
               </svg>
 
-              Ожидает оплаты
+              Ожидает перевода
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@
             @click="openModal"
             class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer max-w-[200px]"
           >
-            Оплатить
+            Перевести
           </button>
         </div>
         <div

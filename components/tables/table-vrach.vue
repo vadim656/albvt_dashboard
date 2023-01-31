@@ -18,15 +18,51 @@
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-          Заказы<br />
-          <span class="text-xs"> Всего / Сегодня</span>
+          <div class="flex gap-1 items-center justify-between">
+            <div>
+              Заказы<br />
+              <span class="text-xs"> Всего / Сегодня</span>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          </div>
         </th>
         <th
           scope="col"
-          class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+          class="px-4 py-3 text-left text-sm align-top  font-medium text-gray-600  tracking-wider"
         >
-          Сумма<br />
-          <span class="text-xs "> Всего / Ставка</span>
+          <div class="flex gap-1  items-center justify-between">
+            <div>
+              Сумма<br />
+              <span class="text-xs "> Всего / Ставка</span>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          </div>
         </th>
         <th
           scope="col"
@@ -51,15 +87,33 @@
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
-           Пациенты<br />
-          <span class="text-xs">всего</span>
+          <div class="flex gap-1 items-center justify-between">
+            <div>
+              Пациенты<br />
+              <span class="text-xs">всего</span>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          </div>
         </th>
-        <th
+        <!-- <th
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
         >
           Специальность
-        </th>
+        </th> -->
         <th
           scope="col"
           class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
@@ -68,15 +122,14 @@
         </th>
       </tr>
     </thead>
-    <tbody v-if="data_users" class=" divide-y divide-gray-400">
+    <tbody v-if="users" class=" divide-y divide-gray-400">
       <table-row-vrach
-        v-for="(item, i) in data_users"
+        v-for="(item, i) in users"
         :key="item.id"
         :item="item"
         :class="[i % 2 ? 'bg-white' : 'bg-gray-100']"
       />
     </tbody>
-    
   </table>
 </template>
 
@@ -86,6 +139,11 @@ export default {
   components: { tableRowVrach },
   props: {
     data_users: Array
+  },
+  computed: {
+    users () {
+      return this.data_users
+    }
   }
 }
 </script>

@@ -84,10 +84,10 @@
 
 <script>
 import gql from 'graphql-tag'
-import aSelect from '../components/a-select.vue'
+import aSelect from '../../components/a-select.vue'
 import vClickOutside from 'v-click-outside'
 import ALL_PACIENTS from '~/gql/queries/all-pacient.gql'
-import TablePacient from '../components/tables/table-pacient.vue'
+import TablePacient from '../../components/tables/table-pacient.vue'
 import SEARCH_PACIENT from '~/gql/queries/SEARCH_PACIENT.gql'
 
 export default {

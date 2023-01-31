@@ -34,12 +34,12 @@
           >
             Статус
           </th>
-          <th
+          <!-- <th
             scope="col"
             class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600  tracking-wider"
           >
             Действия
-          </th>
+          </th> -->
         </tr>
       </thead>
       <tbody v-if="data_req && sortOrders" class=" divide-y divide-gray-400">

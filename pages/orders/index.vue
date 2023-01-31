@@ -157,7 +157,7 @@ export default {
       query () {
         return this.selectFilter
       },
-      pollInterval: 5000,
+      pollInterval: 2000,
       variables () {
         return {
           PAGE: this.page,

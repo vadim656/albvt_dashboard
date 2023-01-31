@@ -36,9 +36,14 @@
             <!-- врачи -->
             <nuxt-link
               prefetch
-              to="/vrachi"
+              to="/vrach"
               href="#"
-              class=" flex flex-row items-center h-10 px-3 group hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+              class=" flex flex-row items-center h-10 px-3 group hover:text-white hover:bg-blue-500 anime  relative"
+              :class="[
+                $route.path.includes('vrach')
+                  ? 'text-white bg-blue-500'
+                  : 'text-gray-500 bg-white'
+              ]"
             >
               <div
                 class="text-sm font-medium flex justify-between items-center w-full "
@@ -52,7 +57,12 @@
               prefetch
               to="/requests"
               href="#"
-              class="flex flex-row items-center h-10 px-3  group hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+              class="flex flex-row items-center h-10 px-3  group hover:text-white hover:bg-blue-500 anime  relative"
+              :class="[
+                $route.path.includes('requests')
+                  ? 'text-white bg-blue-500'
+                  : 'text-gray-500 bg-white'
+              ]"
             >
               <div
                 class="text-sm font-medium flex justify-between items-center w-full "
@@ -68,10 +78,15 @@
             <div class="w-full h-[1px] bg-neutral-200 my-2"></div>
             <!-- пациенты -->
             <nuxt-link
-              to="/pacienti"
+              to="/pacient"
               prefetch
               href="#"
-              class="flex flex-row items-center h-10 px-3 group  hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+              class="flex flex-row items-center h-10 px-3 group  hover:text-white hover:bg-blue-500 anime  relative"
+              :class="[
+                $route.path.includes('pacient')
+                  ? 'text-white bg-blue-500'
+                  : 'text-gray-500 bg-white'
+              ]"
             >
               <div
                 class="text-sm font-medium flex justify-between items-center w-full "
@@ -85,7 +100,12 @@
               to="/orders"
               prefetch
               href="#"
-              class="flex flex-row items-center h-10 px-3 group hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+              :class="[
+                $route.path.includes('orders')
+                  ? 'text-white bg-blue-500'
+                  : 'text-gray-500 bg-white'
+              ]"
+              class="flex flex-row items-center h-10 px-3 group hover:text-white hover:bg-blue-500 anime  relative"
             >
               <div
                 class="text-sm font-medium flex justify-between items-center w-full "
@@ -104,7 +124,12 @@
               to="/visits"
               prefetch
               href="#"
-              class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime text-gray-500 relative"
+              class="flex flex-row items-center h-10 px-3  hover:text-white hover:bg-blue-500 anime  relative"
+               :class="[
+                $route.path.includes('visits')
+                  ? 'text-white bg-blue-500'
+                  : 'text-gray-500 bg-white'
+              ]"
             >
               <div
                 class="text-sm font-medium flex justify-between items-center w-full "
@@ -215,7 +240,8 @@
                   />
                 </svg>
 
-                <span v-if="zaprosyVrachejs.meta.pagination.total > 0"
+                <span
+                  v-if="zaprosyVrachejs.meta.pagination.total > 0"
                   class="text-[10px] text-white  bg-blue-400 w-6 h-6 flex justify-center items-center rounded-full "
                   >{{ zaprosyVrachejs.meta.pagination.total }}</span
                 >
@@ -275,7 +301,8 @@
                   />
                 </svg>
 
-                <span v-if="orders.data.length > 0"
+                <span
+                  v-if="orders.data.length > 0"
                   class="text-[10px] text-white  bg-blue-400 w-6 h-6 flex justify-center items-center rounded-full "
                   >{{ orders.data.length }}</span
                 >
@@ -416,6 +443,15 @@ export default {
       reqs: null,
       page: 0,
       show: true
+    }
+  },
+  computed: {
+    bgButton () {
+      if (this.$route.path.includes('orders')) {
+        return 1
+      } else {
+        return 2
+      }
     }
   },
   methods: {

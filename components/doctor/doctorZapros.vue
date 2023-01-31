@@ -1,47 +1,38 @@
 <template>
-  <tr class="  bg-white group  anime cursor-pointer">
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
-    >
-      {{ item.attributes.UID }}
+  <tr class="  bg-white group  anime ">
+    <td @click="pushRoute" class="anime-td anime font-bold ">
+      <span class="hover:text-blue-500 cursor-pointer">{{
+        item.attributes.UID
+      }}</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
-    >
+    <td class="anime-td anime">
       {{ dateRu }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
-    >
+    <td class="anime-td anime">
       {{ item.attributes.Summ }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
-    >
-      <span
-        v-if="item.attributes.Done == true"
-        class="text-green-500 group-hover:text-white anime"
+    <td class="anime-td anime">
+      <span v-if="item.attributes.Done == true" class="text-green-500"
         >Переведено</span
       >
-      <span v-else class="text-red-500 group-hover:text-white anime"
-        >Ожидает оплаты</span
-      >
+      <span v-else class="text-red-500">Ожидает перевода</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
-    >
+    <td class="anime-td anime cursor-pointer">
       <button
         @click="openModal"
         v-if="item.attributes.Done == false"
-        class="font-medium text-gray-900 tracking-wider  group-hover:text-white anime rounded-md"
+        class="font-medium text-gray-900 tracking-wider hover:text-blue-500 anime rounded-md"
       >
         Перевести
       </button>
       <a
-        :href="`https://api.albvt.ru` + item.attributes.oplataCheck.data[0].attributes.url"
+        :href="
+          `https://api.albvt.ru` +
+            item.attributes.oplataCheck.data[0].attributes.url
+        "
         target="_blank"
         v-if="item.attributes.Done == true"
-        class="font-medium text-gray-900 tracking-wider  group-hover:text-white anime rounded-md"
+        class="font-medium text-gray-900 tracking-wider hover:text-blue-500 anime rounded-md"
       >
         Чек
       </a>
@@ -105,6 +96,9 @@ export default {
     }
   },
   methods: {
+    pushRoute () {
+      this.$router.push('/requests/' + this.item.id).catch(() => {})
+    },
     openModal () {
       this.$refs.modal.active = !this.$refs.modal.active
     },

@@ -1,0 +1,38 @@
+query PISMO_ID($ID: ID) {
+  order(id: $ID) {
+    data {
+      id
+      attributes {
+        createdAt
+        UID
+        ofisies {
+          data {
+            attributes {
+              Name
+              area_invitro {
+                data {
+                  attributes {
+                    sityes_invitros {
+                      data {
+                        attributes {
+                          Name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        analizies {
+          data {
+            attributes {
+              Art
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,24 +1,36 @@
 <template>
-  <tr class=" border-b border-gray-400" v-if="user">
-    <td class="px-4 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+  <tr @click="pushRoute" class=" border-b border-gray-400 group cursor-pointer" v-if="user">
+    <td
+      class="group-hover:bg-gray-200 px-4 py-4 whitespace-nowrap text-sm font-bold text-gray-900 anime"
+    >
       {{ user.id }}
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
-      <nuxt-link :to="/pacient/ + user.id" v-if="user.attributes.FIO_user !== null">
+    <td
+      class="group-hover:bg-gray-200 px-4 py-4 whitespace-nowrap text-sm text-gray-600 anime"
+    >
+      <span v-if="user.attributes.FIO_user !== null">
         {{ setName }}
-      </nuxt-link>
+      </span>
       <span v-else class="text-red-500">Ошибка в ФИО!</span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
+    <td
+      class="group-hover:bg-gray-200 px-4 py-4 whitespace-nowrap text-sm text-gray-600 anime"
+    >
       <span>{{ getOrders }}</span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
+    <td
+      class="group-hover:bg-gray-200 px-4 py-4 whitespace-nowrap text-sm text-gray-600 anime"
+    >
       <span>{{ getSummOrders.toLocaleString('ru-RU') }}₽</span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
+    <td
+      class="group-hover:bg-gray-200 px-4 py-4 whitespace-nowrap text-sm text-gray-600 anime"
+    >
       <span>{{ getPayOrders.toLocaleString('ru-RU') }}₽</span>
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
+    <td
+      class="group-hover:bg-gray-200 px-4 py-4 whitespace-nowrap text-sm text-gray-600 anime"
+    >
       <span>{{ getAllDoctors }}</span>
     </td>
   </tr>
@@ -69,6 +81,11 @@ export default {
       } else {
         return 0
       }
+    }
+  },
+  methods: {
+    pushRoute () {
+      this.$router.push('/pacient/' + this.user.id).catch(() => {})
     }
   }
 }

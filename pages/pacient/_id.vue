@@ -51,7 +51,7 @@
               </th>
               <th
                 scope="col"
-                class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600  tracking-wider"
+                class="px-4 py-3 text-left text-sm align-top text-gray-600  tracking-wider"
               >
                 Дата заказа
               </th>
@@ -72,12 +72,6 @@
                 class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
               >
                 Промокод
-              </th>
-              <th
-                scope="col"
-                class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
-              >
-                Действия
               </th>
             </tr>
           </thead>

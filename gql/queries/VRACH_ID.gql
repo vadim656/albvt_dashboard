@@ -1,57 +1,57 @@
 query VRACH($ID: ID) {
-    usersPermissionsUser( id: $ID ) {
-      data {
-        id
-        attributes {
-          Stavka
-          FIO_user
-          Phone
-          DataRozgdeniya
-          Promo
-          email
-          zaprosy_vrachejs {
-            data {
-              id
-              attributes {
-                Summ
-                createdAt
-                UID
-                Done
-                oplataCheck {
-                  data {
-                    attributes {
-                      url
-                    }
+  usersPermissionsUser(id: $ID) {
+    data {
+      id
+      attributes {
+        Stavka
+        FIO_user
+        Phone
+        DataRozgdeniya
+        Promo
+        email
+        zaprosy_vrachejs(pagination: { limit: 1000 }) {
+          data {
+            id
+            attributes {
+              Summ
+              createdAt
+              UID
+              Done
+              oplataCheck {
+                data {
+                  attributes {
+                    url
                   }
                 }
               }
             }
           }
-          Pacientis {
-            data {
-              id
-              attributes {
-                FIO_user
-                zakazies {
-                  data {
-                    id
-                    attributes{
-                      SummOrder
-                      Status
-                    }
+        }
+        Pacientis(pagination: { limit: 1000 }) {
+          data {
+            id
+            attributes {
+              FIO_user
+              zakazies(pagination: { limit: 1000 }) {
+                data {
+                  id
+                  attributes {
+                    SummOrder
+                    Status
                   }
                 }
               }
             }
           }
-          speczialnosts {
-            data {
-              attributes {
-                Name
-              }
+        }
+        speczialnosts {
+          data {
+            attributes {
+              Name
             }
           }
         }
       }
     }
   }
+}

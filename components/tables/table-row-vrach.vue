@@ -1,12 +1,12 @@
 <template>
   <tr class="  bg-white group  anime cursor-pointer" v-if="orders">
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-blue-500 text-gray-900 group-hover:text-white anime "
+      class="anime-td  anime font-bold"
     >
       {{ item.id }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       <nuxt-link prefetch :to="'/vrach/' + item.id">
         {{
@@ -18,7 +18,7 @@
       </nuxt-link>
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       <span>
         {{ summOrders.data.length }}
@@ -26,7 +26,7 @@
       >
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       <span
         >{{ summOrders.summZaprosAll.toLocaleString('ru-RU') }}
@@ -36,40 +36,40 @@
       </span>
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       <span>
         {{ parseInt(allZapros).toLocaleString('ru-RU') }}
       </span>
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       {{ parseInt(allZaprosDone).toLocaleString('ru-RU') }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       {{ parseInt(allZaprosFalse).toLocaleString('ru-RU') }}
     </td>
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       <span v-if="item.attributes.Pacientis.data.length">
         {{ item.attributes.Pacientis.data.length }}
       </span>
       <span v-else>0</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm text-gray-600 group-hover:text-white anime  group-hover:bg-blue-500"
+    <!-- <td
+      class="anime-td  anime"
     >
       <span v-if="item.attributes.speczialnosts.data.length">{{
         item.attributes.speczialnosts.data[0].attributes.Name
       }}</span>
       <span v-else>Нет специальности</span>
-    </td>
+    </td> -->
     <td
-      class="px-4 py-4 whitespace-nowrap text-right group-hover:text-white anime  group-hover:bg-blue-500"
+      class="anime-td  anime"
     >
       <nuxt-link
         prefetch

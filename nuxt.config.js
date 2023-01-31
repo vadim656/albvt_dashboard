@@ -15,15 +15,13 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '@/assets/css/main.css',
-    '@/assets/css/buefy.scss'
-  ],
+  css: ['@/assets/css/main.css', '@/assets/css/buefy.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/vue-good-table', ssr: false },
-    { src: "~/plugins/vClickOutside", ssr: false }
+    { src: '~/plugins/vClickOutside', ssr: false },
+    { src: '@/plugins/html-to-pdf', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -40,7 +38,7 @@ export default {
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
 
-    "vue-toastification/nuxt"
+    'vue-toastification/nuxt'
   ],
 
   router: {
@@ -56,7 +54,7 @@ export default {
       login: '/login',
       logout: '/login',
       callback: false,
-      home: '/vrachi'
+      home: '/vrach'
     }
   },
   apollo: {

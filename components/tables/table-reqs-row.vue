@@ -1,14 +1,12 @@
 <template>
-  <tr class="  bg-white group  anime cursor-pointer">
+  <tr class="  bg-white group  anime">
     <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-bold group-hover:bg-gray-200 text-gray-900  anime "
+      @click="toReq(req.id)"
+      class="anime-td cursor-pointer hover:text-blue-500  anime font-bold"
     >
-    <nuxt-link :to="`/requests/` + req.id"> {{ req.attributes.UID }}</nuxt-link>
-     
+      {{ req.attributes.UID }}
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td cursor-pointer hover:text-blue-500  anime">
       <span v-if="req.attributes.users_permissions_user.data">{{
         req.attributes.users_permissions_user.data.attributes.FIO_user.replace(
           /(\S+) (\S)\S* (\S)\S*/,
@@ -17,19 +15,13 @@
       }}</span>
       <span v-else>Нет</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm  group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td  anime">
       <span>{{ dateConf }}</span>
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm   group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td  anime">
       {{ req.attributes.Summ.toLocaleString('ru-RU') }}₽
     </td>
-    <td
-      class="px-4 py-4 whitespace-nowrap text-sm font-semibold group-hover:bg-gray-200 text-gray-900  anime "
-    >
+    <td class="anime-td  anime">
       <div
         v-if="req.attributes.Done == true"
         class="text-green-500 flex items-center gap-1"
@@ -72,7 +64,7 @@
         Ожидает оплаты
       </div>
     </td>
-    <td
+    <!-- <td
       class="px-4 py-4 whitespace-nowrap text-sm group-hover:bg-gray-200 text-gray-900  anime "
     >
       <div class="relative w-6 h-6">
@@ -128,7 +120,7 @@
           </div>
         </a-modal-order>
       </div>
-    </td>
+    </td> -->
   </tr>
 </template>
 <script>
@@ -160,6 +152,9 @@ export default {
     }
   },
   methods: {
+    toReq (id) {
+      this.$router.push(`/requests/` + id)
+    },
     openCTXMenu (id) {
       if (this.$refs.modalreq.active == true) {
         this.$refs.modalreq.active = false
@@ -168,37 +163,6 @@ export default {
         this.$refs.modalreq.active = true
         this.$refs.modalreq.id = id
       }
-    },
-    updatereqStatus (id) {
-      // this.$apollo
-      //   .mutate({
-      //     mutation: UPDATE_req,
-      //     variables: {
-      //       ID: id
-      //     }
-      //   })
-      //   .then(data => {
-      //     this.$toast.success('Подтвержение заказа: Успешно!', {
-      //       position: 'top-right',
-      //       timeout: 3000,
-      //       closeOnClick: true,
-      //       pauseOnFocusLoss: true,
-      //       pauseOnHover: true,
-      //       draggable: true
-      //     })
-      //     this.$emit('reFetch')
-      //     this.openCTXMenu(this.req.id)
-      //   })
-      //   .catch(error => {
-      //     this.$toast.error('Подтвержение заказа: Что то пошло не так!', {
-      //       position: 'top-right',
-      //       timeout: 3000,
-      //       closeOnClick: true,
-      //       pauseOnFocusLoss: true,
-      //       pauseOnHover: true,
-      //       draggable: true
-      //     })
-      //   })
     }
   }
 }
