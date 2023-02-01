@@ -7,6 +7,7 @@ query CONSTRUCTOR_ID($ID: ID) {
         UID
         SummOrder
         StatusOplata
+        
         analizies {
           data {
             id

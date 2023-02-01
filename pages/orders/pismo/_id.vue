@@ -64,8 +64,11 @@
           <div
             class="grid grid-cols-[2fr,2fr,2fr,1fr,2fr,2fr] divide-x divide-black -mt-[1px]  border border-black w-full"
           >
-            <span class="p-2 flex justify-start items-start text-start"
-              >Эминова Ксения Сергеевна {{}}</span
+            <span v-if="order && order.data.attributes.users.data.length" class="p-2 flex justify-start items-start text-start"
+              >{{order.data.attributes.users.data[0].attributes.FIO_user}}</span
+            >
+            <span v-else class="p-2 flex justify-start items-start text-start"
+              >ошибка в имени</span
             >
 
             <span class="p-2 flex justify-start items-start text-start"></span>

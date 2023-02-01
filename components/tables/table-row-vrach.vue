@@ -202,8 +202,6 @@ export default {
         ).valueOf()
         if (todayDay == x) {
           nowDate.push(x)
-        } else {
-          console.log('net')
         }
       })
 
