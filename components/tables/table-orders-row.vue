@@ -94,7 +94,7 @@
     <td class="anime-td  anime flex justify-end ">
       <div class="relative w-6 h-6 ">
         <div
-        class="cursor-pointer"
+          class="cursor-pointer"
           v-if="
             (order.attributes.Status == true &&
               order.attributes.StatusOplata == false) ||
@@ -145,16 +145,6 @@
             </button>
           </div>
           <div class="flex flex-wrap gap-2 items-start text-sm">
-            <button
-              @click="updateOrderStatus(order.id)"
-              v-if="
-                order.attributes.Status == false &&
-                  order.attributes.StatusOplata == false
-              "
-              class="bg-blue-500 p-3 rounded-md text-white hover:bg-blue-400 anime cursor-pointer"
-            >
-              Подтвердить заказ
-            </button>
             <nuxt-link
               :to="`/orders/costructor/` + order.id"
               v-if="
@@ -231,7 +221,7 @@ export default {
           }
         })
         .then(data => {
-          console.log(data);
+          console.log(data)
           this.$toast.success('Подтвержение заказа: Успешно!', {
             position: 'top-right',
             timeout: 1000,

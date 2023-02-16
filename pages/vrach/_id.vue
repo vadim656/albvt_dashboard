@@ -2,70 +2,101 @@
   <div>
     <div class="text-gray-800 flex flex-col gap-2" v-if="usersPermissionsUser">
       <b-back />
-
-      <section class="grid grid-cols-[2fr,3fr] border-b border-gray-300 pb-2">
-        <div class="flex flex-col justify-between gap-4" v-if="user">
-          <span class="text-2xl font-semibold">
-            {{ user.data.attributes.FIO_user }}
-          </span>
-          <div class="grid grid-cols-2 gap-2 ">
-            <div class="flex flex-col gap-1">
-              <span class="text-sm text-neutral-500">Телефон:</span>
-              <span class="font-semibold text-sm">{{
-                user.data.attributes.Phone
-              }}</span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <span class="text-sm text-neutral-500">Дата рождения:</span>
-              <span class="font-semibold text-sm">{{
-                user.data.attributes.DataRozgdeniya
-              }}</span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <span class="text-sm text-neutral-500">E-mail:</span>
-              <span class="font-semibold text-sm">{{
-                user.data.attributes.email
-              }}</span>
-            </div>
-            <div
-              @click="closeModal"
-              class="flex flex-col gap-1 relative cursor-pointer"
-            >
-              <span class="text-sm text-neutral-500">Ставка:</span>
-              <span class="font-semibold text-sm flex gap-1 items-center">
-                {{ user.data.attributes.Stavka }}%
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-4 h-4 hover:text-blue-500 anime"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                  />
-                </svg>
-              </span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <span class="text-sm text-neutral-500">Промокод:</span>
-              <span class="font-semibold text-sm">{{
-                user.data.attributes.Promo
-              }}</span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <span class="text-sm text-neutral-500">Специальность:</span>
-              <span class="font-semibold text-sm">{{
-                user.data.attributes.speczialnosts.data[0].attributes.Name
-              }}</span>
-            </div>
+      <div class="flex flex-col justify-between gap-4" v-if="user">
+        <span class="text-2xl font-semibold flex items-center gap-2">
+          {{ user.data.attributes.FIO_user }}
+          <svg
+            v-if="userInfo == false"
+            @click="userInfo = !userInfo"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+            />
+          </svg>
+          <svg
+            v-else-if="userInfo == true"
+            @click="userInfo = !userInfo"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </span>
+        <div class="grid grid-cols-3 gap-2 mb-4" v-if="userInfo == true">
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-500">Телефон:</span>
+            <span class="font-semibold text-sm">{{
+              user.data.attributes.Phone
+            }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-500">Дата рождения:</span>
+            <span class="font-semibold text-sm">{{
+              user.data.attributes.DataRozgdeniya
+            }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-500">E-mail:</span>
+            <span class="font-semibold text-sm">{{
+              user.data.attributes.email
+            }}</span>
+          </div>
+          <div
+            @click="closeModal"
+            class="flex flex-col gap-1 relative cursor-pointer"
+          >
+            <span class="text-sm text-neutral-500">Ставка:</span>
+            <span class="font-semibold text-sm flex gap-1 items-center">
+              {{ user.data.attributes.Stavka }}%
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4 hover:text-blue-500 anime"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                />
+              </svg>
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-500">Промокод:</span>
+            <span class="font-semibold text-sm">{{
+              user.data.attributes.Promo
+            }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm text-neutral-500">Специальность:</span>
+            <span class="font-semibold text-sm">{{
+              user.data.attributes.speczialnosts.data[0].attributes.Name
+            }}</span>
           </div>
         </div>
+      </div>
+      <section class=" border-b border-gray-300 pb-2">
         <div class="text-neutral-700">
-          <div class="grid grid-cols-4 gap-2">
+          <div class="grid grid-cols-7 gap-2">
             <div
               class="bg-white border border-neutral-100 p-3 rounded-md flex flex-col"
             >
@@ -90,7 +121,6 @@
                 >{{ parseInt(allZaprosFalse).toLocaleString('ru-RU') }}₽</span
               >
             </div>
-            <div></div>
             <div
               class="bg-white border border-neutral-100 p-3 rounded-md flex flex-col"
             >
@@ -100,7 +130,7 @@
               }}</span>
               <span v-else>Ошибка</span>
             </div>
-            
+
             <div
               class="bg-white border border-neutral-100 p-3 rounded-md flex flex-col"
             >
@@ -265,7 +295,7 @@
                   >
                     Дата
                   </th>
-                  
+
                   <th
                     scope="col"
                     class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
@@ -367,7 +397,8 @@ export default {
   data () {
     return {
       activeTab: 2,
-      stavka: null
+      stavka: null,
+      userInfo: false
     }
   },
   methods: {
