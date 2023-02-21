@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="text-gray-800 flex flex-col gap-2" v-if="usersPermissionsUser">
+    <div
+      class="text-gray-800 flex flex-col gap-2"
+      v-if="usersPermissionsUser "
+    >
       <b-back />
       <div class="flex flex-col justify-between gap-4" v-if="user">
         <span class="text-2xl font-semibold flex items-center gap-2">
@@ -38,7 +41,7 @@
             />
           </svg>
         </span>
-        <div class="grid grid-cols-3 gap-2 mb-4" v-if="userInfo == true">
+        <div class="grid grid-cols-6 gap-2 mb-4" v-if="userInfo == true">
           <div class="flex flex-col gap-1">
             <span class="text-sm text-neutral-500">Телефон:</span>
             <span class="font-semibold text-sm">{{
@@ -94,7 +97,7 @@
           </div>
         </div>
       </div>
-      <section class=" border-b border-gray-300 pb-2">
+      <section class="border-b border-gray-300 pb-2">
         <div class="text-neutral-700">
           <div class="grid grid-cols-7 gap-2">
             <div
@@ -191,32 +194,32 @@
               <tr>
                 <th
                   scope="col"
-                  class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600  tracking-wider"
+                  class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600 tracking-wider"
                 >
                   ID
                 </th>
                 <th
                   scope="col"
-                  class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                  class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                 >
                   ФИО
                 </th>
 
                 <th
                   scope="col"
-                  class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                  class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                 >
                   Сумма всех заказов
                 </th>
                 <th
                   scope="col"
-                  class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                  class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                 >
                   Оплачено
                 </th>
               </tr>
             </thead>
-            <tbody class=" divide-y divide-gray-400">
+            <tbody class="divide-y divide-gray-400">
               <doctor-pacients
                 v-for="(item, i) in usersPermissionsUser.data.attributes
                   .Pacientis.data"
@@ -234,38 +237,38 @@
                 <tr>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600 tracking-wider"
                   >
                     № запроса
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Дата
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Сумма
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Статус
                   </th>
 
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Действия
                   </th>
                 </tr>
               </thead>
-              <tbody class=" divide-y divide-gray-400">
+              <tbody class="divide-y divide-gray-400">
                 <doctor-zapros
                   v-for="(item, i) in usersPermissionsUser.data.attributes
                     .zaprosy_vrachejs.data"
@@ -285,38 +288,38 @@
                 <tr>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-bold text-gray-600 tracking-wider"
                   >
                     № заказа
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Дата
                   </th>
 
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Сумма
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Пациент
                   </th>
                   <th
                     scope="col"
-                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600  tracking-wider"
+                    class="px-4 py-3 text-left text-sm align-top font-medium text-gray-600 tracking-wider"
                   >
                     Статус
                   </th>
                 </tr>
               </thead>
-              <tbody class=" divide-y divide-gray-400" v-if="orders">
+              <tbody class="divide-y divide-gray-400" v-if="orders">
                 <doctor-order
                   v-for="(item, i) in ordersAllFetch.data"
                   :item="item"
@@ -482,8 +485,8 @@ export default {
       return { summZaprosAll, oplacheno, oplachenoAll }
     },
     allZapros () {
-      const data = this.usersPermissionsUser.data.attributes.zaprosy_vrachejs
-        .data
+      const data =
+        this.usersPermissionsUser.data.attributes.zaprosy_vrachejs.data
       const summZap = data.reduce(
         (accumulator, currentValue) =>
           accumulator + currentValue.attributes.Summ,
@@ -492,8 +495,8 @@ export default {
       return summZap.toFixed(0)
     },
     allZaprosFalse () {
-      const data = this.usersPermissionsUser.data.attributes.zaprosy_vrachejs
-        .data
+      const data =
+        this.usersPermissionsUser.data.attributes.zaprosy_vrachejs.data
       const dataHFitreder = data.filter(x => x.attributes.Done == false)
       const summZap = dataHFitreder.reduce(
         (accumulator, currentValue) =>
@@ -503,8 +506,8 @@ export default {
       return summZap.toFixed(0)
     },
     allZaprosDone () {
-      const data = this.usersPermissionsUser.data.attributes.zaprosy_vrachejs
-        .data
+      const data =
+        this.usersPermissionsUser.data.attributes.zaprosy_vrachejs.data
       const dataHFitreder = data.filter(x => x.attributes.Done == true)
       const summZap = dataHFitreder.reduce(
         (accumulator, currentValue) =>
@@ -514,15 +517,15 @@ export default {
       return summZap.toFixed(0)
     },
     zaprosCheck () {
-      const data = this.usersPermissionsUser.data.attributes.zaprosy_vrachejs
-        .data
+      const data =
+        this.usersPermissionsUser.data.attributes.zaprosy_vrachejs.data
       const dataHFitreder = data.filter(x => x.attributes.Done == false)
 
       return dataHFitreder.length
     },
     allZaprosLength () {
-      const data = this.usersPermissionsUser.data.attributes.zaprosy_vrachejs
-        .data
+      const data =
+        this.usersPermissionsUser.data.attributes.zaprosy_vrachejs.data
 
       return data.length
     }
